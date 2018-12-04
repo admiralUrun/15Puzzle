@@ -28,10 +28,9 @@ class Logic: NSObject {
     
     func gameEnd() -> Bool {
         
-        
-        
         return false
     }
+    
     
 }
 
