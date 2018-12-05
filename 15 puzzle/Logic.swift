@@ -2,19 +2,19 @@
 //  Logic.swift
 //  15 puzzle
 //
-//  Created by Andrew Yakovenko on 11/30/18.
+//  Created by Andrew Yakovenko on 12/4/18.
 //  Copyright © 2018 Andrew Yakovenko. All rights reserved.
 //
 
 import Foundation
 
-
-
 class Logic: NSObject {
     
-     var PuzzletoWin = [[Int]]()
-
-    func setPuzzle(size:Int) ->[[Int]] {
+    var Puzzle = [[Int]]()
+    var toWinPuzzle = [[Int]]()
+    var size = 4
+    
+    func puzzleSet(size:Int) ->[[Int]] {
         var createPuzzle = 1
         var Puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
         for y in 1 ..< size {
@@ -26,12 +26,55 @@ class Logic: NSObject {
         return Puzzle
     }
     
+    func startNewGame()  {
+        Puzzle = puzzleSet(size: size)
+        toWinPuzzle = puzzleSet(size: size)
+        var firstCell = 0
+        var secondCell = 0
+        
+        for _ in 1 ..< 1000 {
+            firstCell = Int.random(in: 1 ... 15)
+            secondCell = Int.random(in: 1 ... 15)
+            
+            firstCell == secondCell ? reRollRandom() : changeCells(firstCell: firstCell, secondCell: secondCell)
+            
+        }
+    }
+    
+    func reRollRandom() {
+        
+    }
+    
+    func changeCells(firstCell:Int , secondCell:Int) {
+        var firstXY = (0, 0)
+        var secondXY = (0, 0)
+        
+        for y in 1 ..< size {
+            for x in 1 ..< size {
+                if Puzzle[y][x] == firstCell {
+                    firstXY = (y, x)
+                } else if Puzzle[y][x] == secondCell {
+                    secondXY = (y, x)
+                }
+            }
+        }
+        
+        let second = Puzzle[firstXY.0][firstXY.1]
+        Puzzle[firstXY.0][firstXY.1] = Puzzle[secondXY.0][secondXY.1]
+        Puzzle[secondXY.0][secondXY.1] = second
+        
+    }
+    
+    
     func gameEnd() -> Bool {
         
         return false
     }
     
+    func starNewGame() {
+        
+        
+        
+    }
     
 }
-
-
