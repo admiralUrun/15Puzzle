@@ -14,6 +14,16 @@ class _5_puzzleTests: XCTestCase {
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
+    
+    func  testStarNewGame() {
+        let game = Logic()
+        
+        game.starNewGame()
+        
+        XCTAssertTrue(game.Puzzle[3][3] == 16)
+        XCTAssertTrue(game.Puzzle != game.puzzleSet(size: 4))
+        
+    }
 
 }

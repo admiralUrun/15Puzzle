@@ -27,6 +27,7 @@ class Logic: NSObject {
     }
     
     func startNewGame()  {
+        toWinPuzzle = puzzleSet(size: size)
         Puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
         var firstCell = 0
@@ -36,13 +37,21 @@ class Logic: NSObject {
             firstCell = Int.random(in: 1 ... 15)
             secondCell = Int.random(in: 1 ... 15)
             
-            firstCell == secondCell ? reRollRandom() : changeCells(firstCell: firstCell, secondCell: secondCell)
+            firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
+            print(Puzzle)
         }
     }
     
-    func reRollRandom() {
+    func reRollRandom(firstCell:Int) {
         
+        for _ in 1 ..< 1000 {
+           let secondCell = Int.random(in: 1 ... 15)
+            if firstCell != secondCell {
+                changeCells(firstCell: firstCell, secondCell: secondCell)
+                return
+            }
+        }
     }
     
     func changeCells(firstCell:Int , secondCell:Int) {
