@@ -13,6 +13,7 @@ class Logic: NSObject {
     var Puzzle = [[Int]]()
     var toWinPuzzle = [[Int]]()
     var size = 4
+    var emptyCell = (3, 3)
     
     func puzzleSet(size:Int) ->[[Int]] {
         var createPuzzle = 1
@@ -74,16 +75,16 @@ class Logic: NSObject {
         
     }
     
+    func editPuzzle(cellEmpty:(Int,Int)) {
+        
+        
+        
+        
+    }
+    
     
     func gameEnd() -> Bool {
         
         return false
     }
-    
-    func starNewGame() {
-        
-        
-        
-    }
-    
 }

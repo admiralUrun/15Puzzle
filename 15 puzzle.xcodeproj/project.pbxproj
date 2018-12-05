@@ -15,6 +15,7 @@
 		955DFF8521B17B0500A8C861 /* _5_puzzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8421B17B0500A8C861 /* _5_puzzleTests.swift */; };
 		955DFF9021B17B0500A8C861 /* _5_puzzleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8F21B17B0500A8C861 /* _5_puzzleUITests.swift */; };
 		955FCD7A21B6E10F0078FF53 /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
+		95AED95A21B82543008245BB /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -269,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95AED95A21B82543008245BB /* Logic.swift in Sources */,
 				955DFF8521B17B0500A8C861 /* _5_puzzleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

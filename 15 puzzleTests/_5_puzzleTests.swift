@@ -19,10 +19,22 @@ class _5_puzzleTests: XCTestCase {
     func  testStarNewGame() {
         let game = Logic()
         
-        game.starNewGame()
+        game.startNewGame()
         
         XCTAssertTrue(game.Puzzle[3][3] == 16)
         XCTAssertTrue(game.Puzzle != game.puzzleSet(size: 4))
+        
+    }
+    
+    
+    func testEditPuzzle() {
+        let game = Logic()
+        game.startNewGame()
+        
+        game.editPuzzle(cellEmpty: game.emptyCell)
+        
+        XCTAssertTrue(game.Puzzle[3][3] != 16)
+        XCTAssertTrue(game.Puzzle[2][3] == 16)
         
     }
 
