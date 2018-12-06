@@ -80,16 +80,19 @@ class Logic: NSObject {
         return xy
     }
     
-    func editPuzzle(cell:(Int,Int)) {
+    func cantPlayerMoveIt() -> Bool {
         
-        
-        
-        
+        return false
     }
     
     
-    func gameEnd() -> Bool {
+    func gameEnd(Move Array:[[Int]]) -> Bool {
         
-        return false
+        if Array == toWinPuzzle {
+            return true
+            
+        } else {
+         return false
+        }
     }
 }
