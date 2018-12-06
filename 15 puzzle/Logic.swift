@@ -18,9 +18,9 @@ class Logic: NSObject {
     func puzzleSet(size:Int) ->[[Int]] {
         var createPuzzle = 1
         var Puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
-        for y in 1 ..< size {
-            for x in 1 ..< size {
-                Puzzle[y][x] = createPuzzle
+        for x in 1 ..< size {
+            for y in 1 ..< size {
+                Puzzle[x][y] = createPuzzle
                 createPuzzle += 1
             }
         }
@@ -56,8 +56,8 @@ class Logic: NSObject {
     }
     
     func changeCells(firstCell:Int , secondCell:Int) {
-        var firstXY = findCordinate(Cell: firstCell)
-        var secondXY = findCordinate(Cell: secondCell)
+        let firstXY = findCordinate(Cell: firstCell)
+        let secondXY = findCordinate(Cell: secondCell)
         
         
         let second = Puzzle[firstXY.0][firstXY.1]
@@ -69,10 +69,11 @@ class Logic: NSObject {
     
     func findCordinate(Cell number:Int) -> (Int, Int) {
        var xy = (0, 0)
+        
         for y in 1 ..< size {
             for x in 1 ..< size {
-                if Puzzle[y][x] == number {
-                    xy = (y, x)
+                if Puzzle[x][y] == number {
+                    xy = (x, y)
                     return xy
                 }
             }
