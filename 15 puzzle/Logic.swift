@@ -10,28 +10,28 @@ import Foundation
 
 class Logic: NSObject {
     
-    var Puzzle = [[Int]]()
+    var puzzle = [[Int]]()
     var toWinPuzzle = [[Int]]()
     var size = 4
     var emptyCell = (0, 0)
     
     func puzzleSet(size:Int) ->[[Int]] {
-        var createPuzzle = 1
-        var Puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
+        var puzzleNumbers = 1
+        var puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
         for x in 1 ..< size {
             for y in 1 ..< size {
-                Puzzle[x][y] = createPuzzle
-                createPuzzle += 1
+                puzzle[x][y] = puzzleNumbers
+                puzzleNumbers += 1
             }
         }
-        return Puzzle
+        return puzzle
     }
     
     func startNewGame()  {
-        emptyCell = (size - 1, size -1)
+        emptyCell = (size - 1, size - 1)
+        puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
-        Puzzle = puzzleSet(size: size)
-        toWinPuzzle = puzzleSet(size: size)
+        
         var firstCell = 0
         var secondCell = 0
         
@@ -41,7 +41,7 @@ class Logic: NSObject {
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
-            print(Puzzle)
+            print(puzzle)
         }
     }
     
@@ -61,9 +61,9 @@ class Logic: NSObject {
         let secondXY = findCordinate(Cell: secondCell)
         
         
-        let second = Puzzle[firstXY.0][firstXY.1]
-        Puzzle[firstXY.0][firstXY.1] = Puzzle[secondXY.0][secondXY.1]
-        Puzzle[secondXY.0][secondXY.1] = second
+        let second = puzzle[firstXY.0][firstXY.1]
+        puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
+        puzzle[secondXY.0][secondXY.1] = second
         
     }
     
@@ -73,7 +73,7 @@ class Logic: NSObject {
         
         for x in 1 ..< size {
             for y in 1 ..< size {
-                if Puzzle[x][y] == number {
+                if puzzle[x][y] == number {
                     xy = (x, y)
                     return xy
                 }

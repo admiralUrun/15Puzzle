@@ -21,8 +21,8 @@ class _5_puzzleTests: XCTestCase {
         
         game.startNewGame()
         
-        XCTAssertTrue(game.Puzzle[3][3] == 16)
-        XCTAssertTrue(game.Puzzle != game.puzzleSet(size: 4))
+        XCTAssertTrue(game.puzzle[3][3] == 16)
+        XCTAssertTrue(game.puzzle != game.puzzleSet(size: 4))
         
     }
     
@@ -33,9 +33,9 @@ class _5_puzzleTests: XCTestCase {
         
         game.editPuzzle(cellEmpty: game.emptyCell)
         
-        XCTAssertTrue(game.Puzzle[3][3] != 16)
-        XCTAssertTrue(game.Puzzle[2][3] == 16)
-        XCTAssertTrue(game.Puzzle[game.emptyCell.0][game.emptyCell.1] == 16)
+        XCTAssertTrue(game.puzzle[3][3] != 16)
+        XCTAssertTrue(game.puzzle[2][3] == 16)
+        XCTAssertTrue(game.puzzle[game.emptyCell.0][game.emptyCell.1] == 16)
         
         
     }
