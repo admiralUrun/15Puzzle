@@ -56,23 +56,28 @@ class Logic: NSObject {
     }
     
     func changeCells(firstCell:Int , secondCell:Int) {
-        var firstXY = (0, 0)
-        var secondXY = (0, 0)
+        var firstXY = findCordinate(Cell: firstCell)
+        var secondXY = findCordinate(Cell: secondCell)
         
-        for y in 1 ..< size {
-            for x in 1 ..< size {
-                if Puzzle[y][x] == firstCell {
-                    firstXY = (y, x)
-                } else if Puzzle[y][x] == secondCell {
-                    secondXY = (y, x)
-                }
-            }
-        }
         
         let second = Puzzle[firstXY.0][firstXY.1]
         Puzzle[firstXY.0][firstXY.1] = Puzzle[secondXY.0][secondXY.1]
         Puzzle[secondXY.0][secondXY.1] = second
         
+    }
+    
+    
+    func findCordinate(Cell number:Int) -> (Int, Int) {
+       var xy = (0, 0)
+        for y in 1 ..< size {
+            for x in 1 ..< size {
+                if Puzzle[y][x] == number {
+                    xy = (y, x)
+                    return xy
+                }
+            }
+        }
+        return xy
     }
     
     func editPuzzle(cellEmpty:(Int,Int)) {
