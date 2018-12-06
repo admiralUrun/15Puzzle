@@ -36,8 +36,8 @@ class Logic: NSObject {
         var secondCell = 0
         
         for _ in 1 ..< 1000 {
-            firstCell = Int.random(in: 1 ... size * size - 1)
-            secondCell = Int.random(in: 1 ... size * size - 1)
+            firstCell = Int.random(in: 0 ... size * size - 1)
+            secondCell = Int.random(in: 0 ... size * size - 1)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
@@ -48,7 +48,7 @@ class Logic: NSObject {
     func reRollRandom(firstCell:Int) {
         
         for _ in 1 ..< 1000 {
-           let secondCell = Int.random(in: 1 ... 15)
+           let secondCell = Int.random(in: 0 ... 15)
             if firstCell != secondCell {
                 changeCells(firstCell: firstCell, secondCell: secondCell)
                 return

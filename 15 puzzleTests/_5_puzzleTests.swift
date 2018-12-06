@@ -31,7 +31,7 @@ class _5_puzzleTests: XCTestCase {
         
         game.startNewGame()
         
-        let randomNumberToCheck = Int.random(in: 1 ... game.size * game.size)
+        let randomNumberToCheck = Int.random(in: 0 ... game.size * game.size)
         
         let coredinate = game.findCordinate(Cell: randomNumberToCheck)
         
