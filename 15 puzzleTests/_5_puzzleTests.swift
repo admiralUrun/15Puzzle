@@ -35,6 +35,8 @@ class _5_puzzleTests: XCTestCase {
         
         XCTAssertTrue(game.Puzzle[3][3] != 16)
         XCTAssertTrue(game.Puzzle[2][3] == 16)
+        XCTAssertTrue(game.Puzzle[game.emptyCell.0][game.emptyCell.1] == 16)
+        
         
     }
 

@@ -13,7 +13,7 @@ class Logic: NSObject {
     var Puzzle = [[Int]]()
     var toWinPuzzle = [[Int]]()
     var size = 4
-    var emptyCell = (3, 3)
+    var emptyCell = (size - 1, size - 1)
     
     func puzzleSet(size:Int) ->[[Int]] {
         var createPuzzle = 1
@@ -35,8 +35,8 @@ class Logic: NSObject {
         var secondCell = 0
         
         for _ in 1 ..< 1000 {
-            firstCell = Int.random(in: 1 ... 15)
-            secondCell = Int.random(in: 1 ... 15)
+            firstCell = Int.random(in: 1 ... size * size - 1)
+            secondCell = Int.random(in: 1 ... size * size - 1)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
@@ -70,8 +70,8 @@ class Logic: NSObject {
     func findCordinate(Cell number:Int) -> (Int, Int) {
        var xy = (0, 0)
         
-        for y in 1 ..< size {
-            for x in 1 ..< size {
+        for x in 1 ..< size {
+            for y in 1 ..< size {
                 if Puzzle[x][y] == number {
                     xy = (x, y)
                     return xy
