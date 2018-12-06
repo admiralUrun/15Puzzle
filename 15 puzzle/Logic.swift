@@ -13,7 +13,7 @@ class Logic: NSObject {
     var Puzzle = [[Int]]()
     var toWinPuzzle = [[Int]]()
     var size = 4
-    var emptyCell = (size - 1, size - 1)
+    var emptyCell = (0, 0)
     
     func puzzleSet(size:Int) ->[[Int]] {
         var createPuzzle = 1
@@ -28,6 +28,7 @@ class Logic: NSObject {
     }
     
     func startNewGame()  {
+        emptyCell = (size - 1, size -1)
         toWinPuzzle = puzzleSet(size: size)
         Puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
