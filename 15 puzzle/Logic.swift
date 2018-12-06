@@ -18,8 +18,8 @@ class Logic: NSObject {
     func puzzleSet(size:Int) ->[[Int]] {
         var puzzleNumbers = 1
         var puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
-        for x in 1 ..< size {
-            for y in 1 ..< size {
+        for x in 0 ..< size {
+            for y in 0 ..< size {
                 puzzle[x][y] = puzzleNumbers
                 puzzleNumbers += 1
             }
@@ -41,8 +41,8 @@ class Logic: NSObject {
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
-            print(puzzle)
         }
+        print(puzzle)
     }
     
     func reRollRandom(firstCell:Int) {

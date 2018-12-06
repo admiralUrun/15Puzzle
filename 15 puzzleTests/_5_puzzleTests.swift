@@ -21,8 +21,21 @@ class _5_puzzleTests: XCTestCase {
         
         game.startNewGame()
         
-        XCTAssertTrue(game.puzzle[3][3] == 16)
-        XCTAssertTrue(game.puzzle != game.puzzleSet(size: 4))
+        XCTAssertTrue(game.puzzle[game.size - 1][game.size - 1] == 16)
+        XCTAssertTrue(game.puzzle != game.puzzleSet(size: game.size))
+        
+    }
+    
+    func testCorectCoredineteRetorn() {
+        let game = Logic()
+        
+        game.startNewGame()
+        
+        let randomNumberToCheck = Int.random(in: 1 ... game.size * game.size)
+        
+        let coredinate = game.findCordinate(Cell: randomNumberToCheck)
+        
+        XCTAssertTrue(game.puzzle[coredinate.0][coredinate.1] == randomNumberToCheck)
         
     }
     
