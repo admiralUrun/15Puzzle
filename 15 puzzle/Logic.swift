@@ -45,14 +45,13 @@ class Logic: NSObject {
     }
     
     func reRollRandom(firstCell:Int) {
+        var secondCell = firstCell
         
-        for _ in 1 ..< 1000 {
-           let secondCell = Int.random(in: 0 ... 15)
-            if firstCell != secondCell {
-                changeCells(firstCell: firstCell, secondCell: secondCell)
-                return
-            }
+        while firstCell != secondCell {
+            secondCell = Int.random(in: 0 ..< size * size)
         }
+        
+        changeCells(firstCell: firstCell, secondCell: secondCell)
     }
     
     func changeCells(firstCell:Int , secondCell:Int) {
@@ -68,7 +67,7 @@ class Logic: NSObject {
     
     
     func findCordinate(Cell number:Int) -> (Int, Int) {
-       var xy = (0, 0)
+        var xy = (0, 0)
         
         for x in 1 ..< size {
             for y in 1 ..< size {
