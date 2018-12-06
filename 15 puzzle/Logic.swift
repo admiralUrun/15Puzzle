@@ -36,13 +36,12 @@ class Logic: NSObject {
         var secondCell = 0
         
         for _ in 1 ..< 1000 {
-            firstCell = Int.random(in: 0 ... size * size - 1)
-            secondCell = Int.random(in: 0 ... size * size - 1)
+            firstCell = Int.random(in: 0 ..< size * size)
+            secondCell = Int.random(in: 0 ..< size * size)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
             
         }
-        print(puzzle)
     }
     
     func reRollRandom(firstCell:Int) {
@@ -82,7 +81,7 @@ class Logic: NSObject {
         return xy
     }
     
-    func editPuzzle(cellEmpty:(Int,Int)) {
+    func editPuzzle(cell:(Int,Int)) {
         
         
         
