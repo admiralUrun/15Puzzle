@@ -22,7 +22,7 @@ class _5_puzzleTests: XCTestCase {
         game.startNewGame()
         
         XCTAssertTrue(game.puzzle[game.size - 1][game.size - 1] == 16)
-        XCTAssertTrue(game.puzzle != game.puzzleSet(size: game.size))
+        XCTAssertTrue(game.puzzle != game.toWinPuzzle)
         
     }
     
@@ -31,7 +31,7 @@ class _5_puzzleTests: XCTestCase {
         
         game.startNewGame()
         
-        let randomNumberToCheck = Int.random(in: 0 ... game.size * game.size)
+        let randomNumberToCheck = Int.random(in: 0 ..< game.size * game.size)
         
         let coredinate = game.findCordinate(Cell: randomNumberToCheck)
         
@@ -44,13 +44,10 @@ class _5_puzzleTests: XCTestCase {
         let game = Logic()
         game.startNewGame()
         
-        game.editPuzzle(cellEmpty: game.emptyCell)
         
-        XCTAssertTrue(game.puzzle[3][3] != 16)
-        XCTAssertTrue(game.puzzle[2][3] == 16)
-        XCTAssertTrue(game.puzzle[game.emptyCell.0][game.emptyCell.1] == 16)
-        
-        
+        XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (0, 0)))
+        XCTAssertFalse(game.cantPlayerMoveIt(first: (3,2), second: (1,1)))
+        XCTAssertTrue(game.cantPlayerMoveIt(first: game.emptyCell, second: (game.emptyCell.0, game.emptyCell.1 - 1)))
     }
 
 }
