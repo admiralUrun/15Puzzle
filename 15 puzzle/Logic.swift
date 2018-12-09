@@ -10,16 +10,16 @@ import Foundation
 
 class Logic: NSObject {
     
-    typealias map = [[Int]]
-    typealias cordinate = (Int, Int)
+    typealias Map = [[Int]]
+    typealias Coordinate = (Int, Int)
     
-    var puzzle = map()
-    var toWinPuzzle = map()
+    var puzzle = Map()
+    var toWinPuzzle = Map()
     var size = 4
     var emptyCell = (0, 0)
     
     
- private  func puzzleSet(size:Int) -> map {
+ private func puzzleSet(size:Int) -> Map {
         var puzzleNumbers = 1
         var puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
         for x in 0 ..< size {
@@ -35,19 +35,16 @@ class Logic: NSObject {
         emptyCell = (size - 1, size - 1)
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
-        
-        var firstCell = 0
-        var secondCell = 0
-        
-        for _ in 1 ..< 1000 {
-            firstCell = Int.random(in: 0 ..< size * size)
-            secondCell = Int.random(in: 0 ..< size * size)
+    
+        for _ in 0 ..< 1000 {
+           let firstCell = Int.random(in: 1 ..< size * size)
+           let secondCell = Int.random(in: 1 ..< size * size)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
         }
     }
     
-  private  func reRollRandom(firstCell:Int) {
+  private func reRollRandom(firstCell:Int) {
         var secondCell = firstCell
         
         while firstCell != secondCell {
@@ -68,50 +65,76 @@ class Logic: NSObject {
     }
     
     
-    func findCordinate(Cell number:Int) -> cordinate {
-        var xy = (0, 0)
-        
-        for x in 1 ..< size {
-            for y in 1 ..< size {
+    func findCordinate(Cell number:Int) -> Coordinate {
+        for x in 0 ..< size {
+            for y in 0 ..< size {
                 if puzzle[x][y] == number {
-                    xy = (x, y)
+                   let xy = (x, y)
                     return xy
                 }
             }
         }
-        return xy
+        assertionFailure()
+        return (-1, -1)
     }
     
-    func cantPlayerMoveIt(first cellOne: cordinate , second cellTwo: cordinate) -> Bool {
-        let emptyCordinate : cordinate?
-        let changeCell : cordinate
-        
-      /*  cellOne == emptyCell ? emptyCordinate = cellOne : cellTwo == emptyCell ? emptyCordinate = cellTwo : print("Error")
-        // Need Help, wont to return false –_–
-        */
+    func cantPlayerMoveIt(first cellOne: Coordinate , second cellTwo: Coordinate) -> Bool {
+        let emptyCordinate : Coordinate
+        let changeCell : Coordinate
+
         if cellOne == emptyCell {
             emptyCordinate = cellOne
+            changeCell = cellTwo
             
-            
-            
+            if checkDirection(emptyCell: emptyCordinate, secondCell: changeCell) {
+                puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
+                puzzle[changeCell.0][changeCell.0] = size * size
+                emptyCell = changeCell
+                return true
+            }
         } else if cellTwo == emptyCell {
             emptyCordinate = cellTwo
+            changeCell = cellOne
             
-            
-            
-            
+            if checkDirection(emptyCell: emptyCordinate, secondCell: changeCell) {
+                puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
+                puzzle[changeCell.0][changeCell.0] = size * size
+                emptyCell = changeCell
+                return true
+            }
         } else {
             return false
         }
-        
         return false
     }
     
-    func gameEnd(Move Array:map) -> Bool {
+    func gameEnd(Move Array:Map) -> Bool {
         if Array == toWinPuzzle {
             return true
         } else {
          return false
         }
     }
+    
+  private func checkDirection(emptyCell emptyCordinate:Coordinate , secondCell cell:Coordinate) -> Bool {
+        let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
+        
+        for direction in directions {
+            let xN = emptyCordinate.0 + direction.0
+            let yN = emptyCordinate.1 + direction.1
+            
+            if (xN < 0 || xN == size || yN < 0 || yN == size) {
+                continue
+            }
+            
+            if puzzle[xN][yN] == puzzle[cell.0][cell.1] {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
+    
+    
 }
