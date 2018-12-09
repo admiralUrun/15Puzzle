@@ -12,6 +12,7 @@ class Logic: NSObject {
     
     typealias Map = [[Int]]
     typealias Coordinate = (Int, Int)
+    typealias CellNumber = Int
     
     var puzzle = Map()
     var toWinPuzzle = Map()
@@ -37,24 +38,24 @@ class Logic: NSObject {
         toWinPuzzle = puzzleSet(size: size)
     
         for _ in 0 ..< 1000 {
-           let firstCell = Int.random(in: 1 ..< size * size)
-           let secondCell = Int.random(in: 1 ..< size * size)
+           let firstCell = CellNumber.random(in: 1 ..< size * size)
+           let secondCell = CellNumber.random(in: 1 ..< size * size)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
         }
     }
     
-  private func reRollRandom(firstCell:Int) {
+  private func reRollRandom(firstCell:CellNumber) {
         var secondCell = firstCell
         
         while firstCell != secondCell {
-            secondCell = Int.random(in: 0 ..< size * size)
+            secondCell = CellNumber.random(in: 0 ..< size * size)
         }
         
         changeCells(firstCell: firstCell, secondCell: secondCell)
     }
     
-   private func changeCells(firstCell:Int , secondCell:Int) {
+   private func changeCells(firstCell:CellNumber , secondCell:CellNumber) {
         let firstXY = findCordinate(Cell: firstCell)
         let secondXY = findCordinate(Cell: secondCell)
     
@@ -65,7 +66,7 @@ class Logic: NSObject {
     }
     
     
-    func findCordinate(Cell number:Int) -> Coordinate {
+    func findCordinate(Cell number:CellNumber) -> Coordinate {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
