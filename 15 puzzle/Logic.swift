@@ -20,7 +20,7 @@ class Logic: NSObject {
     var emptyCell = (0, 0)
     
     
- private func puzzleSet(size:Int) -> Map {
+    private func puzzleSet(size:Int) -> Map {
         var puzzleNumbers = 1
         var puzzle = Array(repeating: Array(repeating: 0, count: size), count: size)
         for x in 0 ..< size {
@@ -36,16 +36,16 @@ class Logic: NSObject {
         emptyCell = (size - 1, size - 1)
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
-    
+        
         for _ in 0 ..< 1000 {
-           let firstCell = CellNumber.random(in: 1 ..< size * size)
-           let secondCell = CellNumber.random(in: 1 ..< size * size)
+            let firstCell = CellNumber.random(in: 1 ..< size * size)
+            let secondCell = CellNumber.random(in: 1 ..< size * size)
             
             firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
         }
     }
     
-  private func reRollRandom(firstCell:CellNumber) {
+    private func reRollRandom(firstCell:CellNumber) {
         var secondCell = firstCell
         
         while firstCell != secondCell {
@@ -55,10 +55,10 @@ class Logic: NSObject {
         changeCells(firstCell: firstCell, secondCell: secondCell)
     }
     
-   private func changeCells(firstCell:CellNumber , secondCell:CellNumber) {
+    private func changeCells(firstCell:CellNumber , secondCell:CellNumber) {
         let firstXY = findCordinate(Cell: firstCell)
         let secondXY = findCordinate(Cell: secondCell)
-    
+        
         let second = puzzle[firstXY.0][firstXY.1]
         puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
         puzzle[secondXY.0][secondXY.1] = second
@@ -70,7 +70,7 @@ class Logic: NSObject {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
-                   let xy = (x, y)
+                    let xy = (x, y)
                     return xy
                 }
             }
@@ -82,7 +82,7 @@ class Logic: NSObject {
     func cantPlayerMoveIt(first cellOne: Coordinate , second cellTwo: Coordinate) -> Bool {
         let emptyCordinate : Coordinate
         let changeCell : Coordinate
-
+        
         if cellOne == emptyCell {
             emptyCordinate = cellOne
             changeCell = cellTwo
@@ -113,11 +113,11 @@ class Logic: NSObject {
         if Array == toWinPuzzle {
             return true
         } else {
-         return false
+            return false
         }
     }
     
-  private func checkDirection(emptyCell emptyCordinate:Coordinate , secondCell cell:Coordinate) -> Bool {
+    private func checkDirection(emptyCell emptyCordinate:Coordinate , secondCell cell:Coordinate) -> Bool {
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
         for direction in directions {
@@ -134,8 +134,4 @@ class Logic: NSObject {
         }
         return false
     }
-    
-    
-    
-    
 }
