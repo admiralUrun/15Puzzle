@@ -75,8 +75,7 @@ class Logic: NSObject {
                 }
             }
         }
-        assertionFailure()
-        return (-1, -1)
+        preconditionFailure()
     }
     
     func cantPlayerMoveIt(first cellOne: Coordinate , second cellTwo: Coordinate) -> Bool {
