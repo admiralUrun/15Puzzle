@@ -10,13 +10,18 @@ import Foundation
 
 class Logic: NSObject {
     
+    public let size :Int
+    
+    init(_ size:Int) {
+        self.size = size
+    }
+    
     typealias Map = [[Int]]
     typealias Coordinate = (Int, Int)
     typealias CellNumber = Int
     
     var puzzle = Map()
     var toWinPuzzle = Map()
-    var size = 4
     var emptyCell = (0, 0)
     
     
@@ -32,7 +37,7 @@ class Logic: NSObject {
         return puzzle
     }
     
-    func startNewGame()  {
+   public func startNewGame()  {
         emptyCell = (size - 1, size - 1)
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
@@ -86,22 +91,24 @@ class Logic: NSObject {
             emptyCordinate = cellOne
             changeCell = cellTwo
             
-            if checkDirection(emptyCell: emptyCordinate, secondCell: changeCell) {
+            if checkDirection(emptyCell: emptyCordinate, to: changeCell) {
                 puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
                 puzzle[changeCell.0][changeCell.0] = size * size
                 emptyCell = changeCell
                 return true
             }
+            
         } else if cellTwo == emptyCell {
             emptyCordinate = cellTwo
             changeCell = cellOne
             
-            if checkDirection(emptyCell: emptyCordinate, secondCell: changeCell) {
+            if checkDirection(emptyCell: emptyCordinate, to: changeCell) {
                 puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
                 puzzle[changeCell.0][changeCell.0] = size * size
                 emptyCell = changeCell
                 return true
             }
+            
         } else {
             return false
         }
@@ -109,14 +116,14 @@ class Logic: NSObject {
     }
     
     func gameEnd(Move Array:Map) -> Bool {
-        if Array == toWinPuzzle {
-            return true
-        } else {
-            return false
-        }
+        return Array == toWinPuzzle
     }
     
-    private func checkDirection(emptyCell emptyCordinate:Coordinate , secondCell cell:Coordinate) -> Bool {
+    private func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate) -> Bool {
+        guard cell.0 < size && cell.1 < size else {
+            return false
+        }
+        
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
         for direction in directions {

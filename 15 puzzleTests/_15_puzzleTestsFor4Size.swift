@@ -1,5 +1,5 @@
 //
-//  _5_puzzleTests.swift
+//  _15_puzzleTests.swift
 //  15 puzzleTests
 //
 //  Created by Andrew Yakovenko on 11/30/18.
@@ -9,13 +9,13 @@
 import XCTest
 @testable import _5_puzzle
 
-class _5_puzzleTests: XCTestCase {
+class _15_puzzleTestsFor4Size: XCTestCase {
 
     var game: Logic!
 
     
     override func setUp() {
-         game = Logic()
+        game = Logic(4)
         game.startNewGame()
     }
     
@@ -40,6 +40,16 @@ class _5_puzzleTests: XCTestCase {
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (0, 0)))
         XCTAssertFalse(game.cantPlayerMoveIt(first: (3,2), second: (1,1)))
         XCTAssertTrue(game.cantPlayerMoveIt(first: game.emptyCell, second: (game.emptyCell.0, game.emptyCell.1 - 1)))
+        
     }
+    
+    func testLogicDontCrahs() {
+        
+        XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (11, 4)))
+        XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (5, 4)))
+        XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (8, 4)))
+        
+    }
+    
 
 }

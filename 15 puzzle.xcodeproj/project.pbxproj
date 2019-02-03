@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9543570A22076BFD00E5B427 /* _15_puzzleTestsFor6size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */; };
 		955DFF7021B17B0400A8C861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF6F21B17B0400A8C861 /* AppDelegate.swift */; };
 		955DFF7221B17B0400A8C861 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF7121B17B0400A8C861 /* ViewController.swift */; };
 		955DFF7521B17B0400A8C861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955DFF7321B17B0400A8C861 /* Main.storyboard */; };
 		955DFF7721B17B0500A8C861 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 955DFF7621B17B0500A8C861 /* Assets.xcassets */; };
 		955DFF7A21B17B0500A8C861 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955DFF7821B17B0500A8C861 /* LaunchScreen.storyboard */; };
-		955DFF8521B17B0500A8C861 /* _5_puzzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8421B17B0500A8C861 /* _5_puzzleTests.swift */; };
+		955DFF8521B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8421B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift */; };
 		955DFF9021B17B0500A8C861 /* _5_puzzleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8F21B17B0500A8C861 /* _5_puzzleUITests.swift */; };
 		955FCD7A21B6E10F0078FF53 /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
 		95AED95A21B82543008245BB /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _15_puzzleTestsFor6size.swift; sourceTree = "<group>"; };
 		955DFF6C21B17B0300A8C861 /* 15 puzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "15 puzzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955DFF6F21B17B0400A8C861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		955DFF7121B17B0400A8C861 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 		955DFF7921B17B0500A8C861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		955DFF7B21B17B0500A8C861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		955DFF8021B17B0500A8C861 /* 15 puzzleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "15 puzzleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		955DFF8421B17B0500A8C861 /* _5_puzzleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _5_puzzleTests.swift; sourceTree = "<group>"; };
+		955DFF8421B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _15_puzzleTestsFor4Size.swift; sourceTree = "<group>"; };
 		955DFF8621B17B0500A8C861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		955DFF8B21B17B0500A8C861 /* 15 puzzleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "15 puzzleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955DFF8F21B17B0500A8C861 /* _5_puzzleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _5_puzzleUITests.swift; sourceTree = "<group>"; };
@@ -114,7 +116,8 @@
 		955DFF8321B17B0500A8C861 /* 15 puzzleTests */ = {
 			isa = PBXGroup;
 			children = (
-				955DFF8421B17B0500A8C861 /* _5_puzzleTests.swift */,
+				955DFF8421B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift */,
+				9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */,
 				955DFF8621B17B0500A8C861 /* Info.plist */,
 			);
 			path = "15 puzzleTests";
@@ -271,7 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				95AED95A21B82543008245BB /* Logic.swift in Sources */,
-				955DFF8521B17B0500A8C861 /* _5_puzzleTests.swift in Sources */,
+				955DFF8521B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift in Sources */,
+				9543570A22076BFD00E5B427 /* _15_puzzleTestsFor6size.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
