@@ -27,18 +27,27 @@ class _15_puzzleTestsFor6size: XCTestCase {
     func testCorectCoredineteRetorn() {
         
         let randomNumberToCheck = Int.random(in: 1 ..< game.size * game.size)
-        let coredinate = game.findCordinate(Cell: randomNumberToCheck)
+        let coredinate = game.find(Cordinate: randomNumberToCheck)
         
         XCTAssertTrue(game.puzzle[coredinate.0][coredinate.1] == randomNumberToCheck)
     }
     
     
-    func testLogicDontCrahs() {
+    func testLogicCantPlayerMoveItDontCrash() {
         
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (6915, 4121)))
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (15, 51513)))
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (7, 666)))
         
     }
+    
+//    func testLogicCorectCoredineteRetornDontCrash() {
+//        
+//        let randomNumberToCheck = Int.random(in: 1 ..< game.size + 1000 * game.size)
+//        let coredinate = game.findCordinate(Cell: randomNumberToCheck)
+//        XCTAssertFalse(game.puzzle[coredinate.0][coredinate.1] == randomNumberToCheck)
+//        
+//    }
+    
     
 }

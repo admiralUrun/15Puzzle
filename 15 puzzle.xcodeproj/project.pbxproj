@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		950EE89D220788F0005BFA7F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EE89C220788F0005BFA7F /* GameView.swift */; };
 		9543570A22076BFD00E5B427 /* _15_puzzleTestsFor6size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */; };
 		955DFF7021B17B0400A8C861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF6F21B17B0400A8C861 /* AppDelegate.swift */; };
 		955DFF7221B17B0400A8C861 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF7121B17B0400A8C861 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		950EE89C220788F0005BFA7F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _15_puzzleTestsFor6size.swift; sourceTree = "<group>"; };
 		955DFF6C21B17B0300A8C861 /* 15 puzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "15 puzzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955DFF6F21B17B0400A8C861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			children = (
 				955DFF6F21B17B0400A8C861 /* AppDelegate.swift */,
 				955DFF7121B17B0400A8C861 /* ViewController.swift */,
+				950EE89C220788F0005BFA7F /* GameView.swift */,
 				955DFF7321B17B0400A8C861 /* Main.storyboard */,
 				955DFF7621B17B0500A8C861 /* Assets.xcassets */,
 				955DFF7821B17B0500A8C861 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 			files = (
 				955DFF7221B17B0400A8C861 /* ViewController.swift in Sources */,
 				955FCD7A21B6E10F0078FF53 /* Logic.swift in Sources */,
+				950EE89D220788F0005BFA7F /* GameView.swift in Sources */,
 				955DFF7021B17B0400A8C861 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

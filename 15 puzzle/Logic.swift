@@ -23,7 +23,7 @@ class Logic: NSObject {
     var puzzle = Map()
     var toWinPuzzle = Map()
     var emptyCell = (0, 0)
-    
+    var moves = 0
     
     private func puzzleSet(size:Int) -> Map {
         var puzzleNumbers = 1
@@ -37,8 +37,9 @@ class Logic: NSObject {
         return puzzle
     }
     
-   public func startNewGame()  {
+    public func startNewGame()  {
         emptyCell = (size - 1, size - 1)
+        moves = 0
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
         
@@ -61,8 +62,8 @@ class Logic: NSObject {
     }
     
     private func changeCells(firstCell:CellNumber , secondCell:CellNumber) {
-        let firstXY = findCordinate(Cell: firstCell)
-        let secondXY = findCordinate(Cell: secondCell)
+        let firstXY = find(Cordinate: firstCell)
+        let secondXY = find(Cordinate: secondCell)
         
         let second = puzzle[firstXY.0][firstXY.1]
         puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
@@ -71,7 +72,7 @@ class Logic: NSObject {
     }
     
     
-    func findCordinate(Cell number:CellNumber) -> Coordinate {
+    func find(Cordinate number:CellNumber) -> Coordinate {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -115,7 +116,7 @@ class Logic: NSObject {
         return false
     }
     
-    func gameEnd(Move Array:Map) -> Bool {
+  public func gameEnd(Move Array:Map) -> Bool {
         return Array == toWinPuzzle
     }
     

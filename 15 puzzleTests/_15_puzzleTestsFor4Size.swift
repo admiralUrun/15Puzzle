@@ -43,7 +43,7 @@ class _15_puzzleTestsFor4Size: XCTestCase {
         
     }
     
-    func testLogicDontCrahs() {
+    func testLogicCantPlayerMoveItDontCrash() {
         
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (11, 4)))
         XCTAssertFalse(game.cantPlayerMoveIt(first: game.emptyCell, second: (5, 4)))
