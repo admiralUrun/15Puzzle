@@ -10,6 +10,10 @@ import Foundation
 
 class Logic: NSObject {
     
+    public enum Directions {
+        case up, down, right, left
+    }
+    
     public let size :Int
     
     init(_ size:Int) {
@@ -20,10 +24,13 @@ class Logic: NSObject {
     typealias Coordinate = (Int, Int)
     typealias CellNumber = Int
     
-    var puzzle = Map()
-    var toWinPuzzle = Map()
     var emptyCell = (0, 0)
     var moves = 0
+    
+    // MARK: - Star Game logic
+    
+    var puzzle = Map()
+    var toWinPuzzle = Map()
     
     private func puzzleSet(size:Int) -> Map {
         var puzzleNumbers = 1
@@ -47,7 +54,7 @@ class Logic: NSObject {
             let firstCell = CellNumber.random(in: 1 ..< size * size)
             let secondCell = CellNumber.random(in: 1 ..< size * size)
             
-            firstCell == secondCell ? reRollRandom(firstCell: firstCell) : changeCells(firstCell: firstCell, secondCell: secondCell)
+            firstCell == secondCell ? reRollRandom(firstCell: firstCell) : change(firstCell: firstCell, secondCell: secondCell)
         }
     }
     
@@ -58,10 +65,10 @@ class Logic: NSObject {
             secondCell = CellNumber.random(in: 0 ..< size * size)
         }
         
-        changeCells(firstCell: firstCell, secondCell: secondCell)
+        change(firstCell: firstCell, secondCell: secondCell)
     }
     
-    private func changeCells(firstCell:CellNumber , secondCell:CellNumber) {
+    private func change(firstCell:CellNumber , secondCell:CellNumber) {
         let firstXY = find(Cordinate: firstCell)
         let secondXY = find(Cordinate: secondCell)
         
@@ -71,8 +78,13 @@ class Logic: NSObject {
         
     }
     
+    public func gameEnd(Move Array:Map) -> Bool {
+        return Array == toWinPuzzle
+    }
     
-    func find(Cordinate number:CellNumber) -> Coordinate {
+    // MARK: - Check Direction
+    
+   public func find(Cordinate number:CellNumber) -> Coordinate {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -84,45 +96,10 @@ class Logic: NSObject {
         preconditionFailure()
     }
     
-    func cantPlayerMoveIt(first cellOne: Coordinate , second cellTwo: Coordinate) -> Bool {
-        let emptyCordinate : Coordinate
-        let changeCell : Coordinate
-        
-        if cellOne == emptyCell {
-            emptyCordinate = cellOne
-            changeCell = cellTwo
-            
-            if checkDirection(emptyCell: emptyCordinate, to: changeCell) {
-                puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
-                puzzle[changeCell.0][changeCell.0] = size * size
-                emptyCell = changeCell
-                return true
-            }
-            
-        } else if cellTwo == emptyCell {
-            emptyCordinate = cellTwo
-            changeCell = cellOne
-            
-            if checkDirection(emptyCell: emptyCordinate, to: changeCell) {
-                puzzle[emptyCordinate.0][emptyCordinate.1] = puzzle[changeCell.0][changeCell.1]
-                puzzle[changeCell.0][changeCell.0] = size * size
-                emptyCell = changeCell
-                return true
-            }
-            
-        } else {
-            return false
-        }
-        return false
-    }
-    
-  public func gameEnd(Move Array:Map) -> Bool {
-        return Array == toWinPuzzle
-    }
-    
-    private func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate) -> Bool {
+
+    private func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate) -> Directions? {
         guard cell.0 < size && cell.1 < size else {
-            return false
+            return nil
         }
         
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
@@ -136,9 +113,22 @@ class Logic: NSObject {
             }
             
             if puzzle[xN][yN] == puzzle[cell.0][cell.1] {
-                return true
+                switch direction {
+                case (-1, 0) :
+                    return Directions.left
+                case (0, -1):
+                    return Directions.up
+                case (1, 0):
+                    return Directions.right
+                case (0, 1):
+                    return Directions.down
+                default:
+                    return nil
+                }
+                
             }
         }
-        return false
+        return nil
     }
+    
 }

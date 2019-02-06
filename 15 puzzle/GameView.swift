@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum Moves {
-    case up, down, right, left
-}
-
-
 class GameView: UIViewController {
     // MARK: - Game Logic
     var inGame = false
@@ -35,11 +30,11 @@ class GameView: UIViewController {
     @IBOutlet weak var ViewPuzzles: UIView!
     var subViews = [UIView]()
     
-    
     func createView(at coordinate:(Int,Int)) -> UIView {
         let newView = UIView(frame: CGRect(origin: .init(x: coordinate.0, y: coordinate.1),
                                            size: .init(width: 75, height: 75)))
-        newView.backgroundColor = UIColor.green.withAlphaComponent(3.0)
+        
+        newView.backgroundColor = UIColor.blue.withAlphaComponent(3.0)
         
         return newView
     }
@@ -54,6 +49,7 @@ class GameView: UIViewController {
         
         for _ in 1 ... Int(size) {
             for x in 1 ... Int(size) {
+                // TODO: cheange to nubemrs to view frame
                 if heightCoordinate == 225 && widthCoordinate == 225 {
                     break
                 }
@@ -72,7 +68,11 @@ class GameView: UIViewController {
             }
         }
     }
-    // MARK: - Moves 
+    
+    // MARK: - Moves
+    
+    
+    
     @IBOutlet weak var movesLable: UILabel!
     
     @IBAction func Move(_ sender: Any) {
@@ -81,20 +81,36 @@ class GameView: UIViewController {
         }
         
         UIView.animate(withDuration: 0.5) {
-            self.direction(view: someSubView, move: .left)
+            self.direction(view: someSubView, move: Logic.Directions.left)
         }
     }
-    
-    func direction(view:UIView, move: Moves) {
+    // TODO: cheange to nubemrs to view frame
+    func direction(view:UIView, move: Logic.Directions) {
         switch move {
         case .up:
-            view.frame.origin.y -= 75
+            if view.frame.origin.y <= 0 {
+                return
+            } else {
+                view.frame.origin.y -= 75
+            }
         case .down:
-            view.frame.origin.y += 75
+            if view.frame.origin.y >= 225 {
+                return
+            } else {
+                view.frame.origin.y += 75
+            }
         case .right:
-            view.frame.origin.x -= 75
+            if view.frame.origin.x <= 0 {
+                return
+            } else {
+                view.frame.origin.x -= 75
+            }
         case .left:
-            view.frame.origin.x += 75
+            if view.frame.origin.x >= 225 {
+                return
+            } else {
+                view.frame.origin.x += 75
+            }
         }
     }
     
