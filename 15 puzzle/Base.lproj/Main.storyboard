@@ -39,7 +39,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="Move:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ali-ZC-P0C"/>
+                                    <action selector="Move:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2rh-sG-3JR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dE-dw-NNu">
@@ -66,6 +66,7 @@
                     <connections>
                         <outlet property="ViewPuzzles" destination="cfY-UD-fPH" id="dao-5N-Wkk"/>
                         <outlet property="movesLable" destination="HlJ-6P-SBf" id="y8U-Mo-vnk"/>
+                        <outlet property="playButton" destination="5dE-dw-NNu" id="p9S-zH-XqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

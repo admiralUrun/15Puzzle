@@ -29,7 +29,7 @@ class _15_puzzleTestsFor4Size: XCTestCase {
     func testCorectCoredineteRetorn() {
  
         let randomNumberToCheck = Int.random(in: 1 ..< game.size * game.size)
-        let coredinate = game.findCordinate(Cell: randomNumberToCheck)
+        let coredinate = game.find(Cordinate: randomNumberToCheck)
         
         XCTAssertTrue(game.puzzle[coredinate.0][coredinate.1] == randomNumberToCheck)
     }
