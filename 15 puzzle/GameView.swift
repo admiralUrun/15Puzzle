@@ -86,7 +86,7 @@ class GameView: UIViewController {
         
         UIView.animate(withDuration: 0.5) {
             
-            self.direction(view: someSubView, moves: self.logic.checkDirection(emptyCell: self.logic.emptyCell, to: self.logic.find(Coordinate: 15), changeLogic: true) )
+            self.direction(view: someSubView, moves: self.logic.getDirection(emptyCell: self.logic.emptyCell, to: self.logic.find(Coordinate: 15), changeLogic: true) )
           //  self.logic.change(emptyCell: self.logic.emptyCell, to: self.logic.find(Coordinate: 15) )
         }
     }

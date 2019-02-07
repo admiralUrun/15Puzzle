@@ -71,13 +71,13 @@ class Logic: NSObject {
     }
     
     private func change(firstCell:CellNumber , secondCell:CellNumber) {
-        let firstXY = find(Coordinate: firstCell)
-        let secondXY = find(Coordinate: secondCell)
-        
-        let second = puzzle[firstXY.0][firstXY.1]
-        puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
-        puzzle[secondXY.0][secondXY.1] = second
-        
+        if let firstXY = find(Coordinate: firstCell) {
+            if let secondXY = find(Coordinate: secondCell) {
+                let second = puzzle[firstXY.0][firstXY.1]
+                puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
+                puzzle[secondXY.0][secondXY.1] = second
+            }
+        }
     }
     
     public func gameEnd(Move Array:Map) -> Bool {
@@ -86,7 +86,7 @@ class Logic: NSObject {
     
     // MARK: - Check Direction
     
-   public func find(Coordinate number:CellNumber) -> Coordinate {
+   public func find(Coordinate number:CellNumber) -> Coordinate? {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -95,20 +95,24 @@ class Logic: NSObject {
                 }
             }
         }
-        preconditionFailure()
+       return nil
     }
     
 
-    public func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate, changeLogic: Bool) -> Directions? {
-        guard cell.0 < size && cell.1 < size else {
+    public func getDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate?, changeLogic: Bool) -> Directions? {
+        guard let _ = cell else {
+            return nil
+        }
+        
+        guard cell!.0 < size && cell!.1 < size else {
             return nil
         }
         
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
         for direction in directions {
-            let xN = cell.0 + direction.0
-            let yN = cell.1 + direction.1
+            let xN = cell!.0 + direction.0
+            let yN = cell!.1 + direction.1
             
             if (xN < 0 || xN == size || yN < 0 || yN == size) {
                 continue
@@ -118,22 +122,22 @@ class Logic: NSObject {
                 switch direction {
                 case (-1, 0) :
                     if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell)
+                        change(fromEmptyCell: emptyCordinate, to: cell!)
                     }
-                    return Directions.down
+                    return Directions.up
                 case (0, -1):
                     if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell)
+                        change(fromEmptyCell: emptyCordinate, to: cell!)
                     }
                     return Directions.right
                 case (1, 0):
                     if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell)
+                        change(fromEmptyCell: emptyCordinate, to: cell!)
                     }
-                    return Directions.up
+                    return Directions.down
                 case (0, 1):
                     if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell)
+                        change(fromEmptyCell: emptyCordinate, to: cell!)
                     }
                     return Directions.left
                 default:
