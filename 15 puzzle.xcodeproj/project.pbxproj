@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		950EE89D220788F0005BFA7F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EE89C220788F0005BFA7F /* GameView.swift */; };
-		9543570A22076BFD00E5B427 /* _15_puzzleTestsFor6size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */; };
 		955DFF7021B17B0400A8C861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF6F21B17B0400A8C861 /* AppDelegate.swift */; };
 		955DFF7521B17B0400A8C861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955DFF7321B17B0400A8C861 /* Main.storyboard */; };
 		955DFF7721B17B0500A8C861 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 955DFF7621B17B0500A8C861 /* Assets.xcassets */; };
@@ -38,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		950EE89C220788F0005BFA7F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _15_puzzleTestsFor6size.swift; sourceTree = "<group>"; };
 		955DFF6C21B17B0300A8C861 /* 15 puzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "15 puzzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955DFF6F21B17B0400A8C861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		955DFF7421B17B0400A8C861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,10 +103,10 @@
 				955DFF6F21B17B0400A8C861 /* AppDelegate.swift */,
 				950EE89C220788F0005BFA7F /* GameView.swift */,
 				955DFF7321B17B0400A8C861 /* Main.storyboard */,
-				955DFF7621B17B0500A8C861 /* Assets.xcassets */,
+				955FCD7821B6DFA60078FF53 /* Logic.swift */,
 				955DFF7821B17B0500A8C861 /* LaunchScreen.storyboard */,
 				955DFF7B21B17B0500A8C861 /* Info.plist */,
-				955FCD7821B6DFA60078FF53 /* Logic.swift */,
+				955DFF7621B17B0500A8C861 /* Assets.xcassets */,
 			);
 			path = "15 puzzle";
 			sourceTree = "<group>";
@@ -117,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				955DFF8421B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift */,
-				9543570922076BFD00E5B427 /* _15_puzzleTestsFor6size.swift */,
 				955DFF8621B17B0500A8C861 /* Info.plist */,
 			);
 			path = "15 puzzleTests";
@@ -275,7 +272,6 @@
 			files = (
 				95AED95A21B82543008245BB /* Logic.swift in Sources */,
 				955DFF8521B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift in Sources */,
-				9543570A22076BFD00E5B427 /* _15_puzzleTestsFor6size.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

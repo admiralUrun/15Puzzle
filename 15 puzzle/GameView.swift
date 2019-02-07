@@ -21,6 +21,7 @@ class GameView: UIViewController {
     }
     
     @IBAction func Play(_ sender: Any) {
+        logic.startNewGame(changePuzzle: false)
         makeSubViews(for15Puzzle: ViewPuzzles, logicSize: Float(logic.size))
         self.playButton.isHidden = true
     }
@@ -28,7 +29,7 @@ class GameView: UIViewController {
     
     // MARK: - Views
     @IBOutlet weak var ViewPuzzles: UIView!
-    var subViews = [UIView]()
+    var subViews = [(Int, UIView)]()
     
     func createView(at coordinate:(Int,Int)) -> UIView {
         let newView = UIView(frame: CGRect(origin: .init(x: coordinate.0, y: coordinate.1),
@@ -47,6 +48,8 @@ class GameView: UIViewController {
         var heightCoordinate = 0
         var widthCoordinate = 0
         
+        var viewNumber = 1
+        
         for _ in 1 ... Int(size) {
             for x in 1 ... Int(size) {
                 // TODO: cheange to nubemrs to view frame
@@ -57,21 +60,22 @@ class GameView: UIViewController {
                 let subView = createView(at: (widthCoordinate,heightCoordinate))
                 if x == Int(size)  {
                     self.ViewPuzzles.addSubview(subView)
-                    self.subViews.append(subView)
+                    self.subViews.append((viewNumber, subView))
+                    viewNumber += 1
                     heightCoordinate += 75
                     widthCoordinate = 0
                 } else {
                     self.ViewPuzzles.addSubview(subView)
-                    self.subViews.append(subView)
+                    self.subViews.append((viewNumber, subView))
+                    viewNumber += 1
                     widthCoordinate += 75
                 }
             }
         }
     }
     
+    
     // MARK: - Moves
-    
-    
     
     @IBOutlet weak var movesLable: UILabel!
     
@@ -81,11 +85,19 @@ class GameView: UIViewController {
         }
         
         UIView.animate(withDuration: 0.5) {
-            self.direction(view: someSubView, move: Logic.Directions.left)
+            
+            self.direction(view: someSubView, moves: self.logic.checkDirection(emptyCell: self.logic.emptyCell, to: self.logic.find(Coordinate: 15), changeLogic: true) )
+          //  self.logic.change(emptyCell: self.logic.emptyCell, to: self.logic.find(Coordinate: 15) )
         }
     }
+    
     // TODO: cheange to nubemrs to view frame
-    func direction(view:UIView, move: Logic.Directions) {
+    
+    func direction(view:UIView, moves: Logic.Directions?) {
+        guard let move = moves else {
+            return
+        }
+        
         switch move {
         case .up:
             if view.frame.origin.y <= 0 {

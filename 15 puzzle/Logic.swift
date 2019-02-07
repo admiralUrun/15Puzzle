@@ -44,17 +44,19 @@ class Logic: NSObject {
         return puzzle
     }
     
-    public func startNewGame()  {
+    public func startNewGame(changePuzzle: Bool)  {
         emptyCell = (size - 1, size - 1)
         moves = 0
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
         
-        for _ in 0 ..< 1000 {
-            let firstCell = CellNumber.random(in: 1 ..< size * size)
-            let secondCell = CellNumber.random(in: 1 ..< size * size)
-            
-            firstCell == secondCell ? reRollRandom(firstCell: firstCell) : change(firstCell: firstCell, secondCell: secondCell)
+        if changePuzzle {
+            for _ in 0 ..< 1000 {
+                let firstCell = CellNumber.random(in: 1 ..< size * size)
+                let secondCell = CellNumber.random(in: 1 ..< size * size)
+                
+                firstCell == secondCell ? reRollRandom(firstCell: firstCell) : change(firstCell: firstCell, secondCell: secondCell)
+            }
         }
     }
     
@@ -69,8 +71,8 @@ class Logic: NSObject {
     }
     
     private func change(firstCell:CellNumber , secondCell:CellNumber) {
-        let firstXY = find(Cordinate: firstCell)
-        let secondXY = find(Cordinate: secondCell)
+        let firstXY = find(Coordinate: firstCell)
+        let secondXY = find(Coordinate: secondCell)
         
         let second = puzzle[firstXY.0][firstXY.1]
         puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
@@ -84,7 +86,7 @@ class Logic: NSObject {
     
     // MARK: - Check Direction
     
-   public func find(Cordinate number:CellNumber) -> Coordinate {
+   public func find(Coordinate number:CellNumber) -> Coordinate {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -97,7 +99,7 @@ class Logic: NSObject {
     }
     
 
-    private func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate) -> Directions? {
+    public func checkDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate, changeLogic: Bool) -> Directions? {
         guard cell.0 < size && cell.1 < size else {
             return nil
         }
@@ -105,23 +107,35 @@ class Logic: NSObject {
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
         for direction in directions {
-            let xN = emptyCordinate.0 + direction.0
-            let yN = emptyCordinate.1 + direction.1
+            let xN = cell.0 + direction.0
+            let yN = cell.1 + direction.1
             
             if (xN < 0 || xN == size || yN < 0 || yN == size) {
                 continue
             }
             
-            if puzzle[xN][yN] == puzzle[cell.0][cell.1] {
+            if puzzle[xN][yN] == puzzle[emptyCordinate.0][emptyCordinate.1] {
                 switch direction {
                 case (-1, 0) :
-                    return Directions.left
-                case (0, -1):
-                    return Directions.up
-                case (1, 0):
-                    return Directions.right
-                case (0, 1):
+                    if changeLogic {
+                        change(fromEmptyCell: emptyCordinate, to: cell)
+                    }
                     return Directions.down
+                case (0, -1):
+                    if changeLogic {
+                        change(fromEmptyCell: emptyCordinate, to: cell)
+                    }
+                    return Directions.right
+                case (1, 0):
+                    if changeLogic {
+                        change(fromEmptyCell: emptyCordinate, to: cell)
+                    }
+                    return Directions.up
+                case (0, 1):
+                    if changeLogic {
+                        change(fromEmptyCell: emptyCordinate, to: cell)
+                    }
+                    return Directions.left
                 default:
                     return nil
                 }
@@ -129,6 +143,18 @@ class Logic: NSObject {
             }
         }
         return nil
+    }
+    
+    
+    private func change(fromEmptyCell:Coordinate , to cell:Coordinate) {
+        let secondCoordinate = cell
+        
+        let empty = puzzle[fromEmptyCell.0][fromEmptyCell.1]
+        puzzle[fromEmptyCell.0][fromEmptyCell.1] = puzzle[secondCoordinate.0][secondCoordinate.1]
+        puzzle[secondCoordinate.0][secondCoordinate.1] = empty
+        
+        emptyCell = cell
+        
     }
     
 }
