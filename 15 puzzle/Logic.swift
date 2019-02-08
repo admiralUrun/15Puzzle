@@ -14,9 +14,9 @@ class Logic: NSObject {
         case up, down, right, left
     }
     
-    public let size :Int
+    public let size: Int
     
-    init(_ size:Int) {
+    init(_ size: Int) {
         self.size = size
     }
     
@@ -71,11 +71,13 @@ class Logic: NSObject {
     }
     
     private func change(firstCell:CellNumber , secondCell:CellNumber) {
-        if let firstXY = find(Coordinate: firstCell) {
-            if let secondXY = find(Coordinate: secondCell) {
-                let second = puzzle[firstXY.0][firstXY.1]
-                puzzle[firstXY.0][firstXY.1] = puzzle[secondXY.0][secondXY.1]
-                puzzle[secondXY.0][secondXY.1] = second
+        if let firstCellCoordinate = find(Coordinate: firstCell) {
+            if let secondCellCoordinate = find(Coordinate: secondCell) {
+                
+                let second = puzzle[firstCellCoordinate.0][firstCellCoordinate.1]
+                puzzle[firstCellCoordinate.0][firstCellCoordinate.1] = puzzle[secondCellCoordinate.0][secondCellCoordinate.1]
+                
+                puzzle[secondCellCoordinate.0][secondCellCoordinate.1] = second
             }
         }
     }
@@ -84,9 +86,9 @@ class Logic: NSObject {
         return Array == toWinPuzzle
     }
     
-    // MARK: - Check Direction
+    // MARK: - Check Direction and move
     
-   public func find(Coordinate number:CellNumber) -> Coordinate? {
+    public func find(Coordinate number:CellNumber) -> Coordinate? {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -95,11 +97,11 @@ class Logic: NSObject {
                 }
             }
         }
-       return nil
+        return nil
     }
     
-
-    public func getDirection(emptyCell emptyCordinate:Coordinate , to cell:Coordinate?, changeLogic: Bool) -> Directions? {
+    
+    public func getDirection(to cell:Coordinate?) -> Directions? {
         guard let _ = cell else {
             return nil
         }
@@ -118,47 +120,42 @@ class Logic: NSObject {
                 continue
             }
             
-            if puzzle[xN][yN] == puzzle[emptyCordinate.0][emptyCordinate.1] {
+            if puzzle[xN][yN] == puzzle[emptyCell.0][emptyCell.1] {
                 switch direction {
                 case (-1, 0) :
-                    if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell!)
-                    }
                     return Directions.up
                 case (0, -1):
-                    if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell!)
-                    }
                     return Directions.right
                 case (1, 0):
-                    if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell!)
-                    }
                     return Directions.down
                 case (0, 1):
-                    if changeLogic {
-                        change(fromEmptyCell: emptyCordinate, to: cell!)
-                    }
                     return Directions.left
                 default:
                     return nil
                 }
-                
             }
         }
         return nil
     }
     
     
-    private func change(fromEmptyCell:Coordinate , to cell:Coordinate) {
+    private func change(to cell:Coordinate) {
         let secondCoordinate = cell
+        let empty = puzzle[emptyCell.0][emptyCell.1]
         
-        let empty = puzzle[fromEmptyCell.0][fromEmptyCell.1]
-        puzzle[fromEmptyCell.0][fromEmptyCell.1] = puzzle[secondCoordinate.0][secondCoordinate.1]
+        puzzle[emptyCell.0][emptyCell.1] = puzzle[secondCoordinate.0][secondCoordinate.1]
         puzzle[secondCoordinate.0][secondCoordinate.1] = empty
         
         emptyCell = cell
-        
     }
+    
+    public func move(cell:Coordinate?, to direction: Directions?)  {
+        guard let _ = cell,
+            let _ = direction else {
+                return
+        }
+        change(to: cell!)
+    }
+    
     
 }

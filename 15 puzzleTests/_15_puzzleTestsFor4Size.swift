@@ -37,7 +37,7 @@ class _15_puzzleTestsFor4Size: XCTestCase {
     func testDirectionDoesntChangeLogic() {
         game.startNewGame(changePuzzle: false)
         
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 15), changeLogic: false))
+        XCTAssertEqual(Logic.Directions.left, game.getDirection(to: game.find(Coordinate: 15)))
         
         XCTAssert(game.puzzle == game.toWinPuzzle)
     }
@@ -45,33 +45,19 @@ class _15_puzzleTestsFor4Size: XCTestCase {
     func testDirectonReturnCorectVaule() {
         game.startNewGame(changePuzzle: false)
         
-        XCTAssertEqual(nil, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 1), changeLogic: false))
+        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 1)))
+        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 5)))
+        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 14)))
+        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 1000)))
         
-        XCTAssertEqual(nil, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 5), changeLogic: false))
         
-        XCTAssertEqual(nil, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 14), changeLogic: false))
-        
-        XCTAssertEqual(nil, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 1000), changeLogic: false))
-        
-        XCTAssertEqual(Logic.Directions.down, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 12), changeLogic: false))
-        
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 15), changeLogic: false))
+        XCTAssertEqual(Logic.Directions.down, game.getDirection(to: game.find(Coordinate: 12)))
+        XCTAssertEqual(Logic.Directions.left, game.getDirection(to: game.find(Coordinate: 15)))
     }
     
-    func testDirectonInChangePuzzle() {
+    func testMoveInChangePuzzle() {
         game.startNewGame(changePuzzle: false)
-        
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 15), changeLogic: true))
-        XCTAssert(game.puzzle != game.toWinPuzzle)
-        
-        
-        XCTAssertEqual(Logic.Directions.right, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 15), changeLogic: true))
-        XCTAssert(game.puzzle == game.toWinPuzzle)
-        
-        
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(emptyCell: game.emptyCell, to: game.find(Coordinate: 15), changeLogic: true))
-        
-        
+  
     }
     
     
