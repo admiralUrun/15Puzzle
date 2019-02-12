@@ -63,24 +63,29 @@ class GameView: UIViewController {
                                                                         y: CGFloat(y) * tileSize.height),
                                                         size: tileSize))
             
+            tileView.tag = tileIndex + 1
+            let tapOnView = UITapGestureRecognizer(target: self, action: #selector(self.catchTapOnView(_:)))
+            tileView.addGestureRecognizer(tapOnView)
+             tileView.isUserInteractionEnabled = true
             viewPuzzles.addSubview(tileView)
-            subViews.append((tileIndex + 1, tileView))
+            subViews.append((tileView.tag, tileView))
         }
     }
     
     // MARK: - Moves
     
     @IBOutlet weak var movesLable: UILabel!
-    
-    @IBAction func Move(_ sender: Any) {
-        guard let someSubView = self.subViews.last,
-            let coordinate = self.logic.find(Coordinate: someSubView.0),
-            let direction =  self.logic.getDirection(to: coordinate) else {
+        
+    @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
+        updateMovesLable()
+        guard let someSubView = sender.view,
+            let coordinate = logic.find(Coordinate: someSubView.tag),
+            let direction =  logic.getDirection(to: coordinate) else {
                 return
         }
-        // self.subViews.last
+        
         UIView.animate(withDuration: 0.4) {
-            self.direction(view: someSubView.1,
+            self.direction(view: someSubView,
                            moves: direction)
             self.logic.move(cell: coordinate,
                             to: direction)

@@ -155,6 +155,7 @@ class Logic: NSObject {
                 return
         }
         change(to: cell!)
+        moves += 1
     }
     
     
