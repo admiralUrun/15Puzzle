@@ -44,21 +44,41 @@ class Logic: NSObject {
         return puzzle
     }
     
-    public func startNewGame(changePuzzle: Bool)  {
+    public func preapearForNewGame()  {
         emptyCell = (size - 1, size - 1)
         moves = 0
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
         
-        if changePuzzle {
-            for _ in 0 ..< 1000 {
-                let firstCell = CellNumber.random(in: 1 ..< size * size)
-                let secondCell = CellNumber.random(in: 1 ..< size * size)
-                
-                firstCell == secondCell ? reRollRandom(firstCell: firstCell) : change(firstCell: firstCell, secondCell: secondCell)
+    }
+    
+    public func getDirectionForMixUp() -> (Directions?,CellNumber,Coordinate)?  {
+        let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
+        var posibolMoves = [Coordinate]()
+        for direction in directions {
+            let xN = emptyCell.0 + direction.0
+            let yN = emptyCell.1 + direction.1
+            
+            if (xN < 0 || xN == size || yN < 0 || yN == size) {
+                continue
             }
+            
+            posibolMoves.append((xN,yN))
+        }
+        
+        if posibolMoves.isEmpty {
+            return nil
+        } else {
+            let moveTo = Int.random(in: 0 ..< posibolMoves.count)
+            let coordinate = posibolMoves[moveTo]
+            let direction = getDirection(to: posibolMoves[moveTo])
+            let cellTag = puzzle[coordinate.0][coordinate.1]
+            return (direction,cellTag,coordinate)
         }
     }
+    
+    
+    
     
     private func reRollRandom(firstCell:CellNumber) {
         var secondCell = firstCell
