@@ -16,7 +16,11 @@ class GameView: UIViewController {
     
     @IBOutlet weak var timeLable: UILabel!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var viewPuzzles: UIView!
+    @IBOutlet weak var movesLable: UILabel!
     
+    
+    // MARK: -
     override func viewDidLoad() {
         let tileCount = 4
         logic = Logic(tileCount)
@@ -45,7 +49,7 @@ class GameView: UIViewController {
     
     func mixUp() {
         for _ in  0 ... 1000    {
-            if let directionAndCellTagWithCoordinate = logic.getDirectionForMixUp(),
+            if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
                 let direction = directionAndCellTagWithCoordinate.0 {
                 
                 let view = findViewByTag(cellNumber: directionAndCellTagWithCoordinate.1)
@@ -61,7 +65,7 @@ class GameView: UIViewController {
         }
         
         while logic.puzzle.last?.last != 16 {
-            if let directionAndCellTagWithCoordinate = logic.getDirectionForMixUp(),
+            if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
                 let direction = directionAndCellTagWithCoordinate.0 {
                 
                 let view = findViewByTag(cellNumber: directionAndCellTagWithCoordinate.1)
@@ -75,18 +79,16 @@ class GameView: UIViewController {
                 continue
             }
         }
-        
     }
     
     // MARK: - Views
-    
-    @IBOutlet weak var viewPuzzles: UIView!
     
     func createTileView(frame: CGRect, index: Int) -> UIImageView {
         let newView = UIImageView(frame: frame)
         newView.tag = index + 1
         let image = UIImage(named: "\(newView.tag)")
         newView.image = image
+        
         return newView
     }
     
@@ -104,7 +106,6 @@ class GameView: UIViewController {
             let tileView = createTileView(frame: CGRect(origin: CGPoint(x: CGFloat(x) * tileSize.width,
                                                                         y: CGFloat(y) * tileSize.height),
                                                         size: tileSize), index: tileIndex)
-            
             
             let tapOnView = UITapGestureRecognizer(target: self, action: #selector(self.catchTapOnView(_:)))
             tileView.addGestureRecognizer(tapOnView)
@@ -124,8 +125,6 @@ class GameView: UIViewController {
     
     // MARK: - Moves
     
-    @IBOutlet weak var movesLable: UILabel!
-    
     @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
         updateMovesLable()
         guard let someSubView = sender.view,
@@ -134,6 +133,7 @@ class GameView: UIViewController {
             else {
                 return
         }
+        
         UIView.animate(withDuration: 0.4) {
             self.direction(view: someSubView,
                            moves: direction)

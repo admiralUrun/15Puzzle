@@ -22,7 +22,7 @@ class Logic: NSObject {
     
     typealias Map = [[Int]]
     typealias Coordinate = (Int, Int)
-    typealias CellNumber = Int
+    typealias CellTag = Int
     
     var emptyCell = (0, 0)
     var moves = 0
@@ -49,12 +49,12 @@ class Logic: NSObject {
         moves = 0
         puzzle = puzzleSet(size: size)
         toWinPuzzle = puzzleSet(size: size)
-        
     }
     
-    public func getDirectionForMixUp() -> (Directions?,CellNumber,Coordinate)?  {
+    public func getDataForMixUp() -> (Directions?,CellTag,Coordinate)?  {
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         var posibolMoves = [Coordinate]()
+        
         for direction in directions {
             let xN = emptyCell.0 + direction.0
             let yN = emptyCell.1 + direction.1
@@ -62,7 +62,7 @@ class Logic: NSObject {
             if (xN < 0 || xN == size || yN < 0 || yN == size) {
                 continue
             }
-            
+        
             posibolMoves.append((xN,yN))
         }
         
@@ -77,38 +77,13 @@ class Logic: NSObject {
         }
     }
     
-    
-    
-    
-    private func reRollRandom(firstCell:CellNumber) {
-        var secondCell = firstCell
-        
-        while firstCell != secondCell {
-            secondCell = CellNumber.random(in: 0 ..< size * size)
-        }
-        
-        change(firstCell: firstCell, secondCell: secondCell)
-    }
-    
-    private func change(firstCell:CellNumber , secondCell:CellNumber) {
-        if let firstCellCoordinate = find(Coordinate: firstCell) {
-            if let secondCellCoordinate = find(Coordinate: secondCell) {
-                
-                let second = puzzle[firstCellCoordinate.0][firstCellCoordinate.1]
-                puzzle[firstCellCoordinate.0][firstCellCoordinate.1] = puzzle[secondCellCoordinate.0][secondCellCoordinate.1]
-                
-                puzzle[secondCellCoordinate.0][secondCellCoordinate.1] = second
-            }
-        }
-    }
-    
     public func gameEnd(Move Array:Map) -> Bool {
         return Array == toWinPuzzle
     }
     
     // MARK: - Check Direction and move
     
-    public func find(Coordinate number:CellNumber) -> Coordinate? {
+    public func find(Coordinate number:CellTag) -> Coordinate? {
         for x in 0 ..< size {
             for y in 0 ..< size {
                 if puzzle[x][y] == number {
@@ -122,13 +97,10 @@ class Logic: NSObject {
     
     
     public func getDirection(to cell:Coordinate?) -> Directions? {
-        guard let _ = cell else {
+        guard let _ = cell, cell!.0 < size && cell!.1 < size else {
             return nil
         }
         
-        guard cell!.0 < size && cell!.1 < size else {
-            return nil
-        }
         
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
