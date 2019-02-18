@@ -62,7 +62,7 @@ class Logic: NSObject {
             if (xN < 0 || xN == size || yN < 0 || yN == size) {
                 continue
             }
-        
+            
             posibolMoves.append((xN,yN))
         }
         
@@ -73,20 +73,21 @@ class Logic: NSObject {
             let coordinate = posibolMoves[moveTo]
             let direction = getDirection(to: posibolMoves[moveTo])
             let cellTag = puzzle[coordinate.0][coordinate.1]
+            
             return (direction,cellTag,coordinate)
         }
     }
     
-    public func gameEnd(Move Array:Map) -> Bool {
-        return Array == toWinPuzzle
+    public func gameEnd() -> Bool {
+        return puzzle == toWinPuzzle
     }
     
     // MARK: - Check Direction and move
     
-    public func find(Coordinate number:CellTag) -> Coordinate? {
+    public func getCoordinateBy(tag cellTag:CellTag) -> Coordinate? {
         for x in 0 ..< size {
             for y in 0 ..< size {
-                if puzzle[x][y] == number {
+                if puzzle[x][y] == cellTag {
                     let xy = (x, y)
                     return xy
                 }
@@ -130,6 +131,15 @@ class Logic: NSObject {
         return nil
     }
     
+    public func move(cell:Coordinate?, to direction: Directions?)  {
+        guard let _ = cell,
+            let _ = direction else {
+                return
+        }
+        change(to: cell!)
+        moves += 1
+    }
+    
     
     private func change(to cell:Coordinate) {
         let secondCoordinate = cell
@@ -139,15 +149,6 @@ class Logic: NSObject {
         puzzle[secondCoordinate.0][secondCoordinate.1] = empty
         
         emptyCell = cell
-    }
-    
-    public func move(cell:Coordinate?, to direction: Directions?)  {
-        guard let _ = cell,
-            let _ = direction else {
-                return
-        }
-        change(to: cell!)
-        moves += 1
     }
     
     

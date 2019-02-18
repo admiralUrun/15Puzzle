@@ -16,49 +16,64 @@ class _15_puzzleTestsFor4Size: XCTestCase {
     
     override func setUp() {
         game = Logic(4)
+        game.preapearForNewGame()
     }
     
-    
-    func  testStarNewGame() {
-        game.startNewGame(changePuzzle: true)
-        XCTAssertTrue(game.puzzle[game.size - 1][game.size - 1] == 16)
-        XCTAssertTrue(game.puzzle != game.toWinPuzzle)
-    }
-    
-    func testCorectCoredineteRetorn() {
-        game.startNewGame(changePuzzle: true)
-        let randomNumberToCheck = Int.random(in: 1 ..< game.size * game.size)
+    func testpreparationForGame() {
+
+        XCTAssertTrue(game.puzzle == game.toWinPuzzle, "Someing wrong with puzzleSet()")
         
-        if let coredinate = game.find(Coordinate: randomNumberToCheck) {
-            XCTAssertTrue(game.puzzle[coredinate.0][coredinate.1] == randomNumberToCheck)
+        XCTAssertTrue(game.moves == 0, "Moves must be equal to 0")
+        
+        XCTAssertTrue(game.emptyCell == (game.size - 1, game.size - 1), "emptyCell not last in puzzle, it does't set corect ")
+    }
+    
+    func testGetDataForMixUpReturnCorectVaules() {
+        let data = game.getDataForMixUp()
+        XCTAssertTrue(data != nil, "Data return nil!!!")
+       // let direction = data!.0
+        let cellTag = data!.1
+        let cooredinate = data!.2
+        
+        XCTAssertEqual(cellTag, game.puzzle[cooredinate.0][cooredinate.1], "\(cellTag) or \(cooredinate) return wrong vaule")
+        
+    }
+    
+    func testGameEnd() {
+        XCTAssertTrue(game.gameEnd(), "if testpreparationForGame is success gameEnd return wrong Bool")
+        
+        game.move(cell: (3,2), to: game.getDirection(to: (3,2)))
+        XCTAssertFalse(game.gameEnd(), "move does't work or gameEnd Return wrong Bool")
+    }
+    
+    func testGetCoordinateByTag() {
+        let noCellAtThisCoordinate = 205
+        XCTAssertNil(game.getCoordinateBy(tag: noCellAtThisCoordinate), "There aren't any cell with \(noCellAtThisCoordinate) tag, for 4Size squad")
+        
+        let firstTagAfterGameBegiane = 1
+        
+        XCTAssertTrue(getBoolForCoordinate(CoordinateOne: (0, 0), CoordinateCanBeNil:game.getCoordinateBy(tag: firstTagAfterGameBegiane)), "")
+    }
+    
+    func testGetDirectionForBegining() {
+        let firstMove = game.getCoordinateBy(tag: 12)
+        let secondMove = game.getCoordinateBy(tag: 15)
+        XCTAssertEqual(Logic.Directions.down, game.getDirection(to: firstMove), "")
+        XCTAssertEqual(Logic.Directions.left, game.getDirection(to: secondMove), "")
+        
+    }
+    
+    
+    func testMoves() {
+        game.move(cell: (3, 2), to: nil)
+        XCTAssertTrue(game.gameEnd(), "")
+    }
+    
+    
+    func getBoolForCoordinate(CoordinateOne:(Int, Int), CoordinateCanBeNil:(Int, Int)?) -> Bool {
+        guard let _ = CoordinateCanBeNil else {
+            return false
         }
+        return CoordinateOne == CoordinateCanBeNil!
     }
-    
-    func testDirectionDoesntChangeLogic() {
-        game.startNewGame(changePuzzle: false)
-        
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(to: game.find(Coordinate: 15)))
-        
-        XCTAssert(game.puzzle == game.toWinPuzzle)
-    }
-    // MARK: - DirectonTests
-    func testDirectonReturnCorectVaule() {
-        game.startNewGame(changePuzzle: false)
-        
-        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 1)))
-        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 5)))
-        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 14)))
-        XCTAssertNil(game.getDirection(to: game.find(Coordinate: 1000)))
-        
-        
-        XCTAssertEqual(Logic.Directions.down, game.getDirection(to: game.find(Coordinate: 12)))
-        XCTAssertEqual(Logic.Directions.left, game.getDirection(to: game.find(Coordinate: 15)))
-    }
-    
-    func testMoveInChangePuzzle() {
-        game.startNewGame(changePuzzle: false)
-  
-    }
-    
-    
 }

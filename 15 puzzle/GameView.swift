@@ -128,7 +128,7 @@ class GameView: UIViewController {
     @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
         updateMovesLable()
         guard let someSubView = sender.view,
-            let coordinate = logic.find(Coordinate: someSubView.tag),
+            let coordinate = logic.getCoordinateBy(tag: someSubView.tag),
             let direction =  logic.getDirection(to: coordinate)
             else {
                 return
