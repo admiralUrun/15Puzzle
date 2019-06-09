@@ -18,17 +18,16 @@ class GameView: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var viewPuzzles: UIView!
     @IBOutlet weak var movesLable: UILabel!
-    
+    var tileCount: Int! = nil
     
     // MARK: -
     override func viewDidLoad() {
-        let tileCount = 4
-        logic = Logic(tileCount)
         movesLable.isHidden = true
         timeLable.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        logic = Logic(tileCount)
         logic.preapearForNewGame()
         makeTileSubviews(inView: viewPuzzles)
     }
@@ -39,6 +38,11 @@ class GameView: UIViewController {
     
     // MARK:- Prepear for game
     
+    public func take(size s:Int) {
+        tileCount = s
+    }
+    
+    
     @IBAction func Play(_ sender: Any) {
         viewPuzzles.subviews.forEach({$0.isUserInteractionEnabled = true})
         self.playButton.isHidden = true
@@ -47,7 +51,7 @@ class GameView: UIViewController {
         mixUp()
     }
     
-    func mixUp() {
+   private func mixUp() {
         for _ in  0 ... 1000    {
             if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
                 let direction = directionAndCellTagWithCoordinate.0 {
@@ -56,7 +60,7 @@ class GameView: UIViewController {
                 UIView.animate(withDuration: 0.3) {
                     self.direction(view: view,
                                    moves: direction)
-                    self.logic.move(cell: directionAndCellTagWithCoordinate.2 ,
+                    self.logic.mix(cell: directionAndCellTagWithCoordinate.2 ,
                                     to: direction)
                 }
             } else {
@@ -64,7 +68,7 @@ class GameView: UIViewController {
             }
         }
         
-        while logic.puzzle.last?.last != 16 {
+        while logic.puzzle.last?.last != tileCount * tileCount {
             if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
                 let direction = directionAndCellTagWithCoordinate.0 {
                 
@@ -72,7 +76,7 @@ class GameView: UIViewController {
                 UIView.animate(withDuration: 0.3) {
                     self.direction(view: view,
                                    moves: direction)
-                    self.logic.move(cell: directionAndCellTagWithCoordinate.2 ,
+                    self.logic.mix(cell: directionAndCellTagWithCoordinate.2 ,
                                     to: direction)
                 }
             } else {
@@ -83,7 +87,7 @@ class GameView: UIViewController {
     
     // MARK: - Views
     
-    func createTileView(frame: CGRect, index: Int) -> UIImageView {
+   private func createTileView(frame: CGRect, index: Int) -> UIImageView {
         let newView = UIImageView(frame: frame)
         newView.tag = index + 1
         let image = UIImage(named: "\(newView.tag)")
@@ -92,7 +96,7 @@ class GameView: UIViewController {
         return newView
     }
     
-    func makeTileSubviews(inView view: UIView) {
+   private func makeTileSubviews(inView view: UIView) {
         guard view.frame.size.height == view.frame.size.width else {
             preconditionFailure("View for puzzle aren't square")
         }
@@ -114,7 +118,7 @@ class GameView: UIViewController {
         }
     }
     
-    func findViewByTag(cellNumber:Int) -> UIView {
+   private func findViewByTag(cellNumber:Int) -> UIView {
         for subView in viewPuzzles.subviews {
             if subView.tag == cellNumber {
                 return subView
@@ -126,7 +130,6 @@ class GameView: UIViewController {
     // MARK: - Moves
     
     @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
-        updateMovesLable()
         guard let someSubView = sender.view,
             let coordinate = logic.getCoordinateBy(tag: someSubView.tag),
             let direction =  logic.getDirection(to: coordinate)
@@ -140,9 +143,10 @@ class GameView: UIViewController {
             self.logic.move(cell: coordinate,
                             to: direction)
         }
+        updateMovesLable()
     }
     
-    func direction(view:UIView, moves: Logic.Directions?) {
+   private func direction(view:UIView, moves: Logic.Directions?) {
         guard let move = moves else {
             return
         }

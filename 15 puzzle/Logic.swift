@@ -131,6 +131,14 @@ class Logic: NSObject {
         return nil
     }
     
+    public func mix(cell:Coordinate?, to direction: Directions?)  {
+        guard let _ = cell,
+            let _ = direction else {
+                return
+        }
+        change(to: cell!)
+    }
+    
     public func move(cell:Coordinate?, to direction: Directions?)  {
         guard let _ = cell,
             let _ = direction else {
