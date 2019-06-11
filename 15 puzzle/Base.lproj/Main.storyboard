@@ -91,7 +91,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="JMs-jJ-E6y" kind="show" id="I41-4x-Lts"/>
+                                    <segue destination="JMs-jJ-E6y" kind="show" identifier="back" id="I41-4x-Lts"/>
                                 </connections>
                             </button>
                         </subviews>

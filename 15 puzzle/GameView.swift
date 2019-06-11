@@ -11,6 +11,7 @@ import UIKit
 class GameView: UIViewController {
     
     var logic: Logic!
+    var timer: Timer!
     
     var tileSize : CGSize!
     
@@ -19,6 +20,7 @@ class GameView: UIViewController {
     @IBOutlet weak var viewPuzzles: UIView!
     @IBOutlet weak var movesLable: UILabel!
     var tileCount: Int! = nil
+    var startDate:Date!
     
     // MARK: -
     override func viewDidLoad() {
@@ -33,7 +35,7 @@ class GameView: UIViewController {
     }
     
     private func updateMovesLable() {
-        movesLable.text = "Moves: \(logic.moves)"
+        movesLable.text = "Moves:\(logic.moves)"
     }
     
     // MARK:- Prepear for game
@@ -49,9 +51,16 @@ class GameView: UIViewController {
         movesLable.isHidden = false
         timeLable.isHidden = false
         mixUp()
+        startDate = Date()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {xx -> Void in
+            self.refreshLableIn(time: xx)
+            print("Tick")
+        })
+        
     }
     
    private func mixUp() {
+    logic.moves = 0
         for _ in  0 ... 1000    {
             if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
                 let direction = directionAndCellTagWithCoordinate.0 {
@@ -144,6 +153,9 @@ class GameView: UIViewController {
                             to: direction)
         }
         updateMovesLable()
+        if logic.gameEnd() {
+            end(logic.moves)
+        }
     }
     
    private func direction(view:UIView, moves: Logic.Directions?) {
@@ -172,6 +184,50 @@ class GameView: UIViewController {
         }
     }
     
-    // MARK: -
+    // MARK: - Game End
+    
+    private func end(_ move: Int) {
+        // "GG, You done it for \(logic.moves) moves"
+        let alert = UIAlertController(title: "GG",
+                                      message: "You done it for \(logic.moves) moves and \(timeInString())", preferredStyle: .alert)
+        
+        let newOne = UIAlertAction(title: "Again",
+                                   style: .default,
+                                   handler: {xx -> Void in self.starNewGame() })
+        
+        let stopPlaying = UIAlertAction(title: "Menu",
+                                        style: .default,
+                                        handler: {yy -> Void in self.performSegue(withIdentifier: "back", sender: self)})
+        
+        alert.addAction(newOne)
+        alert.addAction(stopPlaying)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func starNewGame() {
+        logic = Logic(tileCount)
+        logic.preapearForNewGame()
+        makeTileSubviews(inView: viewPuzzles)
+        
+        viewPuzzles.subviews.forEach({$0.isUserInteractionEnabled = true})
+        self.playButton.isHidden = true
+        movesLable.isHidden = false
+        timeLable.isHidden = false
+        mixUp()
+    }
+    
+    
+    // MARK: - Timer
+    
+    private func refreshLableIn(time: Timer) {
+        timeLable.text = "Time::" + timeInString()
+    }
+    
+    private func timeInString() -> String {
+        let seconds = Date().timeIntervalSinceReferenceDate - startDate.timeIntervalSinceReferenceDate
+        let hours = Int(seconds / 3600)
+        let mitets = Int(seconds / 60)
+        return "\(hours):\(mitets):\(Int(seconds))"
+    }
     
 }
