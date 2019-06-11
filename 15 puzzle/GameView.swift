@@ -12,6 +12,8 @@ class GameView: UIViewController {
     
     var logic: Logic!
     var timer: Timer!
+    var stopWatch: StopWatch!
+    var playing: Bool!
     
     var tileSize : CGSize!
     
@@ -31,7 +33,10 @@ class GameView: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         logic = Logic(tileCount)
         logic.preapearForNewGame()
+        stopWatch = StopWatch()
+        timer = Timer()
         makeTileSubviews(inView: viewPuzzles)
+        playing = false
     }
     
     private func updateMovesLable() {
@@ -50,11 +55,11 @@ class GameView: UIViewController {
         self.playButton.isHidden = true
         movesLable.isHidden = false
         timeLable.isHidden = false
+        playing = true
         mixUp()
-        startDate = Date()
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {xx -> Void in
-            self.refreshLableIn(time: xx)
-            print("Tick")
+        stopWatch.startStopWatch()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {xx -> Void in
+            self.refreshLableIn()
         })
         
     }
@@ -93,6 +98,7 @@ class GameView: UIViewController {
             }
         }
     }
+    
     
     // MARK: - Views
     
@@ -189,7 +195,7 @@ class GameView: UIViewController {
     private func end(_ move: Int) {
         // "GG, You done it for \(logic.moves) moves"
         let alert = UIAlertController(title: "GG",
-                                      message: "You done it for \(logic.moves) moves and \(timeInString())", preferredStyle: .alert)
+                                      message: "You have done it for \(logic.moves) moves and in \(stopWatch.getTime())", preferredStyle: .alert)
         
         let newOne = UIAlertAction(title: "Again",
                                    style: .default,
@@ -202,6 +208,8 @@ class GameView: UIViewController {
         alert.addAction(newOne)
         alert.addAction(stopPlaying)
         present(alert, animated: true, completion: nil)
+        timer.invalidate()
+        print("Stop at" + stopWatch.stop())
     }
     
     private func starNewGame() {
@@ -217,17 +225,21 @@ class GameView: UIViewController {
     }
     
     
-    // MARK: - Timer
-    
-    private func refreshLableIn(time: Timer) {
-        timeLable.text = "Time::" + timeInString()
+    @IBAction func backButton(_ sender: Any) {
+        if playing {
+            self.timer.invalidate()
+            print("Stop at" + self.stopWatch.stop())
+            performSegue(withIdentifier: "back", sender: self)
+        } else {
+            performSegue(withIdentifier: "back", sender: self)
+        }
     }
     
-    private func timeInString() -> String {
-        let seconds = Date().timeIntervalSinceReferenceDate - startDate.timeIntervalSinceReferenceDate
-        let hours = Int(seconds / 3600)
-        let mitets = Int(seconds / 60)
-        return "\(hours):\(mitets):\(Int(seconds))"
+    
+    // MARK: - Timer
+    
+    private func refreshLableIn() {
+        timeLable.text = "Time::" + stopWatch.getTime()
     }
     
 }

@@ -16,6 +16,9 @@
 		955DFF9021B17B0500A8C861 /* _5_puzzleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFF8F21B17B0500A8C861 /* _5_puzzleUITests.swift */; };
 		955FCD7A21B6E10F0078FF53 /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
 		95AED95A21B82543008245BB /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FCD7821B6DFA60078FF53 /* Logic.swift */; };
+		95C69BD222AF88BE0035FF85 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C69BD122AF88BE0035FF85 /* StopWatch.swift */; };
+		95C69BD422AF8A720035FF85 /* StopwatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C69BD322AF8A720035FF85 /* StopwatchTest.swift */; };
+		95C69BD522AF8AFF0035FF85 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C69BD122AF88BE0035FF85 /* StopWatch.swift */; };
 		95DD0BA422AD247C0051FA64 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD0BA322AD247C0051FA64 /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +54,8 @@
 		955DFF8F21B17B0500A8C861 /* _5_puzzleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _5_puzzleUITests.swift; sourceTree = "<group>"; };
 		955DFF9121B17B0500A8C861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		955FCD7821B6DFA60078FF53 /* Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logic.swift; sourceTree = "<group>"; };
+		95C69BD122AF88BE0035FF85 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
+		95C69BD322AF8A720035FF85 /* StopwatchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchTest.swift; sourceTree = "<group>"; };
 		95DD0BA322AD247C0051FA64 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +111,7 @@
 				955DFF7321B17B0400A8C861 /* Main.storyboard */,
 				95DD0BA322AD247C0051FA64 /* MenuViewController.swift */,
 				950EE89C220788F0005BFA7F /* GameView.swift */,
+				95C69BD122AF88BE0035FF85 /* StopWatch.swift */,
 				955DFF7821B17B0500A8C861 /* LaunchScreen.storyboard */,
 				955DFF7B21B17B0500A8C861 /* Info.plist */,
 				955FCD7821B6DFA60078FF53 /* Logic.swift */,
@@ -118,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				955DFF8421B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift */,
+				95C69BD322AF8A720035FF85 /* StopwatchTest.swift */,
 				955DFF8621B17B0500A8C861 /* Info.plist */,
 			);
 			path = "15 puzzleTests";
@@ -265,6 +272,7 @@
 			files = (
 				955FCD7A21B6E10F0078FF53 /* Logic.swift in Sources */,
 				950EE89D220788F0005BFA7F /* GameView.swift in Sources */,
+				95C69BD222AF88BE0035FF85 /* StopWatch.swift in Sources */,
 				955DFF7021B17B0400A8C861 /* AppDelegate.swift in Sources */,
 				95DD0BA422AD247C0051FA64 /* MenuViewController.swift in Sources */,
 			);
@@ -275,7 +283,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				95AED95A21B82543008245BB /* Logic.swift in Sources */,
+				95C69BD422AF8A720035FF85 /* StopwatchTest.swift in Sources */,
 				955DFF8521B17B0500A8C861 /* _15_puzzleTestsFor4Size.swift in Sources */,
+				95C69BD522AF8AFF0035FF85 /* StopWatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

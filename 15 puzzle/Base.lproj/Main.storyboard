@@ -91,7 +91,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="JMs-jJ-E6y" kind="show" identifier="back" id="I41-4x-Lts"/>
+                                    <action selector="backButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vuk-or-nKA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -118,6 +118,7 @@
                         <outlet property="playButton" destination="5dE-dw-NNu" id="p9S-zH-XqJ"/>
                         <outlet property="timeLable" destination="d7V-dh-Ae9" id="ePV-wJ-twL"/>
                         <outlet property="viewPuzzles" destination="cfY-UD-fPH" id="dao-5N-Wkk"/>
+                        <segue destination="JMs-jJ-E6y" kind="show" identifier="back" id="3ho-GI-aST"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
