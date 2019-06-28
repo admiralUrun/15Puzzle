@@ -136,11 +136,8 @@ class GameView: UIViewController {
     // MARK: - Moves
     
     @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
-        guard let someSubView = sender.view,
-            let coordinate = logic.getCoordinateBy(tag: someSubView.tag)
-            else {
-                return
-        }
+        guard let someSubView = sender.view else { return }
+        let coordinate = logic.getCoordinateBy(tag: someSubView.tag)
         let direction =  logic.getDirection(to: coordinate)
         UIView.animate(withDuration: 0.4) {
             self.direction(view: someSubView,
@@ -186,7 +183,7 @@ class GameView: UIViewController {
         views.first.center = views.second.center
         views.second.center = pointBefore
         
-        self.logic.swapTwo(firstCell: logic.getCoordinateBy(tag: swap.firstTag)!, secondCell: logic.getCoordinateBy(tag: swap.secondTag)!)
+        self.logic.swapTwo(firstCell: logic.getCoordinateBy(tag: swap.firstTag), secondCell: logic.getCoordinateBy(tag: swap.secondTag))
     }
     
     

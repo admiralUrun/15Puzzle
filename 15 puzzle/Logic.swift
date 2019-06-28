@@ -63,40 +63,13 @@ class Logic: NSObject {
         toWinPuzzle = puzzle
     }
     
-    //    public func getDataForMixUp() -> (Directions?,CellTag,Coordinate)?  {
-    //        let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
-    //        var posibolMoves = [Coordinate]()
-    //
-    //        for direction in directions {
-    //            let xN = emptyCell.0 + direction.0
-    //            let yN = emptyCell.1 + direction.1
-    //
-    //            if (xN < 0 || xN == size || yN < 0 || yN == size) {
-    //                continue
-    //            }
-    //
-    //            posibolMoves.append((xN,yN))
-    //        }
-    //
-    //        if posibolMoves.isEmpty {
-    //            return nil
-    //        } else {
-    //            let moveTo = Int.random(in: 0 ..< posibolMoves.count)
-    //            let coordinate = posibolMoves[moveTo]
-    //            let direction = getDirection(to: posibolMoves[moveTo])
-    //            let cellTag = puzzle[coordinate.0][coordinate.1]
-    //
-    //            return (direction,cellTag,coordinate)
-    //        }
-    //    }
-    
     public func gameEnd() -> Bool {
         return puzzle == toWinPuzzle
     }
     
     // MARK: - Check Direction and move
     
-    public func getCoordinateBy(tag cellTag:CellTag) -> Coordinate? {
+    public func getCoordinateBy(tag cellTag: CellTag) -> Coordinate {
         for row in 0 ..< size {
             for col in 0 ..< size {
                 if puzzle[row][col] == cellTag {
@@ -104,7 +77,7 @@ class Logic: NSObject {
                 }
             }
         }
-        return nil
+        preconditionFailure("There is not cell with tag \(cellTag) ! ! !")
     }
     
     
@@ -167,6 +140,7 @@ class Logic: NSObject {
                 
             }
         }
+        
         let first = shuffing[Int.random(in: 0 ..< shuffing.count)]
         switch first {
         case .up:
