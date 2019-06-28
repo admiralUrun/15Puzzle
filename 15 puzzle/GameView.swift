@@ -23,6 +23,13 @@ class GameView: UIViewController {
     @IBOutlet weak var movesLable: UILabel!
     var tileCount: Int! = nil
     var startDate:Date!
+    typealias SubView = UIView
+    
+    
+    private struct SwapingUIView {
+        let first: UIView
+        let second: UIView
+    }
     
     // MARK: -
     override func viewDidLoad() {
@@ -64,45 +71,29 @@ class GameView: UIViewController {
         
     }
     
-   private func mixUp() {
-    logic.moves = 0
-        for _ in  0 ... 1000    {
-            if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
-                let direction = directionAndCellTagWithCoordinate.0 {
+    private func mixUp() {
+        logic.moves = 0
+        for row in 0 ..< logic.size {
+            for col in 0 ..< logic.size {
+                let coordinate = Logic.Coordinate.init(row: row, col: col)
+                if theSame(f: coordinate, s: logic.emptyCell) { continue }
+                let shuffingData = logic.getDirectionToShuffling(coordinate: coordinate)
                 
-                let view = findViewByTag(cellNumber: directionAndCellTagWithCoordinate.1)
                 UIView.animate(withDuration: 0.3) {
-                    self.direction(view: view,
-                                   moves: direction)
-                    self.logic.mix(cell: directionAndCellTagWithCoordinate.2 ,
-                                    to: direction)
+                    self.directionFor(swap: shuffingData)
                 }
-            } else {
-                continue
             }
         }
-        
-        while logic.puzzle.last?.last != tileCount * tileCount {
-            if let directionAndCellTagWithCoordinate = logic.getDataForMixUp(),
-                let direction = directionAndCellTagWithCoordinate.0 {
-                
-                let view = findViewByTag(cellNumber: directionAndCellTagWithCoordinate.1)
-                UIView.animate(withDuration: 0.3) {
-                    self.direction(view: view,
-                                   moves: direction)
-                    self.logic.mix(cell: directionAndCellTagWithCoordinate.2 ,
-                                    to: direction)
-                }
-            } else {
-                continue
-            }
-        }
+    }
+    
+    private func theSame(f: Logic.Coordinate, s: Logic.Coordinate) -> Bool {
+        return f.row == s.row && f.col == s.col ? true : false
     }
     
     
     // MARK: - Views
     
-   private func createTileView(frame: CGRect, index: Int) -> UIImageView {
+    private func createTileView(frame: CGRect, index: Int) -> UIImageView {
         let newView = UIImageView(frame: frame)
         newView.tag = index + 1
         let image = UIImage(named: "\(newView.tag)")
@@ -111,7 +102,7 @@ class GameView: UIViewController {
         return newView
     }
     
-   private func makeTileSubviews(inView view: UIView) {
+    private func makeTileSubviews(inView view: UIView) {
         guard view.frame.size.height == view.frame.size.width else {
             preconditionFailure("View for puzzle aren't square")
         }
@@ -133,7 +124,7 @@ class GameView: UIViewController {
         }
     }
     
-   private func findViewByTag(cellNumber:Int) -> UIView {
+    private func findViewByTag(cellNumber:Int) -> UIView {
         for subView in viewPuzzles.subviews {
             if subView.tag == cellNumber {
                 return subView
@@ -146,17 +137,15 @@ class GameView: UIViewController {
     
     @objc func catchTapOnView(_ sender: UITapGestureRecognizer) {
         guard let someSubView = sender.view,
-            let coordinate = logic.getCoordinateBy(tag: someSubView.tag),
-            let direction =  logic.getDirection(to: coordinate)
+            let coordinate = logic.getCoordinateBy(tag: someSubView.tag)
             else {
                 return
         }
-        
+        let direction =  logic.getDirection(to: coordinate)
         UIView.animate(withDuration: 0.4) {
             self.direction(view: someSubView,
                            moves: direction)
-            self.logic.move(cell: coordinate,
-                            to: direction)
+            self.logic.move(cell: coordinate)
         }
         updateMovesLable()
         if logic.gameEnd() {
@@ -164,7 +153,7 @@ class GameView: UIViewController {
         }
     }
     
-   private func direction(view:UIView, moves: Logic.Directions?) {
+    private func direction(view:UIView, moves: Logic.Directions?) {
         guard let move = moves else {
             return
         }
@@ -189,6 +178,17 @@ class GameView: UIViewController {
             break
         }
     }
+    
+    private func directionFor(swap:Logic.ShuffelingSwap) {
+        let views = SwapingUIView.init(first: findViewByTag(cellNumber: swap.firstTag),
+                                      second: findViewByTag(cellNumber: swap.secondTag))
+        let pointBefore = views.first.center
+        views.first.center = views.second.center
+        views.second.center = pointBefore
+        
+        self.logic.swapTwo(firstCell: logic.getCoordinateBy(tag: swap.firstTag)!, secondCell: logic.getCoordinateBy(tag: swap.secondTag)!)
+    }
+    
     
     // MARK: - Game End
     
