@@ -10,7 +10,6 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
-    
     var gameSize = 0
     override func viewDidLoad() {
         super.viewDidLoad()

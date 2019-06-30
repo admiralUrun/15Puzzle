@@ -25,10 +25,9 @@ class GameView: UIViewController {
     var startDate:Date!
     typealias SubView = UIView
     
-    
     private struct SwapingUIView {
-        let first: UIView
-        let second: UIView
+        let first: SubView
+        let second: SubView
     }
     
     // MARK: -
@@ -56,9 +55,8 @@ class GameView: UIViewController {
         tileCount = s
     }
     
-    
     @IBAction func Play(_ sender: Any) {
-        viewPuzzles.subviews.forEach({$0.isUserInteractionEnabled = true})
+        viewPuzzles.subviews.forEach({ $0.isUserInteractionEnabled = true })
         self.playButton.isHidden = true
         movesLable.isHidden = false
         timeLable.isHidden = false
@@ -68,7 +66,6 @@ class GameView: UIViewController {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {xx -> Void in
             self.refreshLableIn()
         })
-        
     }
     
     private func mixUp() {
@@ -89,7 +86,6 @@ class GameView: UIViewController {
     private func theSame(f: Logic.Coordinate, s: Logic.Coordinate) -> Bool {
         return f.row == s.row && f.col == s.col ? true : false
     }
-    
     
     // MARK: - Views
     
@@ -141,7 +137,7 @@ class GameView: UIViewController {
         let direction =  logic.getDirection(to: coordinate)
         UIView.animate(withDuration: 0.4) {
             self.direction(view: someSubView,
-                           moves: direction)
+                           move: direction)
             self.logic.move(cell: coordinate)
         }
         updateMovesLable()
@@ -150,10 +146,7 @@ class GameView: UIViewController {
         }
     }
     
-    private func direction(view:UIView, moves: Logic.Directions?) {
-        guard let move = moves else {
-            return
-        }
+    private func direction(view:UIView, move: Logic.Directions) {
         
         let xlastUICoordinateOnMainView = viewPuzzles.frame.width - tileSize.width
         let ylastUICoordinateOnMainView = viewPuzzles.frame.height - tileSize.height
@@ -172,7 +165,7 @@ class GameView: UIViewController {
             view.frame.origin.x += CGFloat(tileSize.width)
             
         case _:
-            break
+            preconditionFailure("Something wrong with \(view)'s CGPoint or Directions enum was edit")
         }
     }
     
@@ -183,9 +176,9 @@ class GameView: UIViewController {
         views.first.center = views.second.center
         views.second.center = pointBefore
         
-        self.logic.swapTwo(firstCell: logic.getCoordinateBy(tag: swap.firstTag), secondCell: logic.getCoordinateBy(tag: swap.secondTag))
+        self.logic.swapTwo(firstCell: logic.getCoordinateBy(tag: swap.firstTag),
+                           secondCell: logic.getCoordinateBy(tag: swap.secondTag))
     }
-    
     
     // MARK: - Game End
     
@@ -194,16 +187,16 @@ class GameView: UIViewController {
         let alert = UIAlertController(title: "GG",
                                       message: "You have done it for \(logic.moves) moves and in \(stopWatch.getTime())", preferredStyle: .alert)
         
-        let newOne = UIAlertAction(title: "Again",
+        let playAgain = UIAlertAction(title: "Again",
                                    style: .default,
-                                   handler: {xx -> Void in self.starNewGame() })
+                                   handler: {xx -> Void in self.playAgain() })
         
-        let stopPlaying = UIAlertAction(title: "Menu",
+        let toMenu = UIAlertAction(title: "Menu",
                                         style: .default,
-                                        handler: {yy -> Void in self.performSegue(withIdentifier: "back", sender: self)})
-        
-        alert.addAction(newOne)
-        alert.addAction(stopPlaying)
+                                        handler: {yy -> Void in self.performSegue(withIdentifier: "back",
+                                                                                  sender: self)})
+        alert.addAction(playAgain)
+        alert.addAction(toMenu)
         present(alert, animated: true, completion: nil)
         timer.invalidate()
         print("Stop at" + stopWatch.stop())
@@ -221,6 +214,15 @@ class GameView: UIViewController {
         mixUp()
     }
     
+    private func playAgain() {
+        mixUp()
+        updateMovesLable()
+        stopWatch.startStopWatch()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {xx -> Void in
+            self.refreshLableIn()
+        })
+    }
+    
     
     @IBAction func backButton(_ sender: Any) {
         if playing {
@@ -231,7 +233,6 @@ class GameView: UIViewController {
             performSegue(withIdentifier: "back", sender: self)
         }
     }
-    
     
     // MARK: - Timer
     

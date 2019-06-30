@@ -8,14 +8,14 @@
 
 import Foundation
 
-
 class StopWatch {
     typealias Time = String
     typealias MinutesCount = Int
+    typealias HourCount = Int
     
-    //    var timer: Timer!
     private var startDate: Date!
     private var minutesCount: MinutesCount!
+    private var hourCount: HourCount!
     private var timerIsWorking: Bool!
     
     public func startStopWatch()  {
@@ -29,11 +29,12 @@ class StopWatch {
         let date = Date().timeIntervalSinceReferenceDate - startDate.timeIntervalSinceReferenceDate
         let hours = Int(date / 3600)
         let minutes = Int(date / 60)
-        changeMinutesCount(minutes)
+        changeCountOf(minutes: minutes)
+        changeCountOf(hours: hours)
+        
         let seconds = Int(date)
         
-        return "\(hours):\(minutes):\(seconds - (60 * minutesCount))"
-        
+        return "\(hours):\(minutes - (60 * hours)):\(seconds - (60 * minutesCount))"
     }
     
     public func stop() -> Time {
@@ -43,7 +44,11 @@ class StopWatch {
         return time
     }
     
-    private func changeMinutesCount(_ minutes:Int) {
+    private func changeCountOf(minutes: MinutesCount) {
         minutesCount = minutes
+    }
+    
+    private func changeCountOf(hours: HourCount) {
+        hourCount = hours
     }
 }

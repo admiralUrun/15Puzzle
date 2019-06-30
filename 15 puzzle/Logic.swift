@@ -26,7 +26,6 @@ class Logic: NSObject {
         var col: Int
     }
     
-    
     public let size: Int
     
     init(_ size: Int) {
@@ -80,18 +79,16 @@ class Logic: NSObject {
         preconditionFailure("There is not cell with tag \(cellTag) ! ! !")
     }
     
-    
-    
-    public func getDirection(to cell: Coordinate?) -> Directions {
-        guard let _ = cell, cell!.row < size && cell!.col < size else {
+    public func getDirection(to cell: Coordinate) -> Directions {
+        if cell.row > size || cell.col > size || cell.col < 0 || cell.row < 0 {
             preconditionFailure("Your Coordinate is nil")
         }
         
         let directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
         
         for direction in directions {
-            let xN = cell!.row + direction.0
-            let yN = cell!.col + direction.1
+            let xN = cell.row + direction.0
+            let yN = cell.col + direction.1
             
             if (xN < 0 || xN == size || yN < 0 || yN == size) {
                 continue
@@ -142,21 +139,21 @@ class Logic: NSObject {
         }
         
         let first = shuffing[Int.random(in: 0 ..< shuffing.count)]
+        let secondTag = puzzle[cell.row][cell.col]
         switch first {
         case .up:
             return ShuffelingSwap.init(frist: first, firstTag: puzzle[cell.row - 1][cell.col],
-                                       second: .down, secondTag: puzzle[cell.row][cell.col])
+                                       second: .down, secondTag: secondTag)
         case .down:
             return ShuffelingSwap.init(frist: first, firstTag: puzzle[cell.row + 1][cell.col],
-                                       second: .up, secondTag: puzzle[cell.row][cell.col])
+                                       second: .up, secondTag: secondTag)
         case .right:
             return ShuffelingSwap.init(frist: first, firstTag: puzzle[cell.row][cell.col - 1],
-                                       second: .left, secondTag: puzzle[cell.row][cell.col])
+                                       second: .left, secondTag: secondTag)
         case .left:
             return ShuffelingSwap.init(frist: first, firstTag: puzzle[cell.row][cell.col + 1],
-                                       second: .right, secondTag: puzzle[cell.row][cell.col])
+                                       second: .right, secondTag: secondTag)
         }
-        
     }
     
     public func swapTwo(firstCell f: Coordinate, secondCell s: Coordinate)  {
@@ -171,7 +168,6 @@ class Logic: NSObject {
         moves += 1
     }
     
-    
     private func change(to cell: Coordinate) {
         let secondCoordinate = cell
         let empty = puzzle[emptyCell.row][emptyCell.col]
@@ -181,6 +177,5 @@ class Logic: NSObject {
         
         emptyCell = cell
     }
-    
     
 }
