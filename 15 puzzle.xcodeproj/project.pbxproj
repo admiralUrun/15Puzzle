@@ -82,6 +82,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		95487D7822CB403D0060A758 /* Game Logic */ = {
+			isa = PBXGroup;
+			children = (
+				955FCD7821B6DFA60078FF53 /* Logic.swift */,
+				95C69BD122AF88BE0035FF85 /* StopWatch.swift */,
+			);
+			path = "Game Logic";
+			sourceTree = "<group>";
+		};
+		95487D7922CB405D0060A758 /* Main Views */ = {
+			isa = PBXGroup;
+			children = (
+				95DD0BA322AD247C0051FA64 /* MenuViewController.swift */,
+				950EE89C220788F0005BFA7F /* GameView.swift */,
+			);
+			path = "Main Views";
+			sourceTree = "<group>";
+		};
 		955DFF6321B17B0300A8C861 = {
 			isa = PBXGroup;
 			children = (
@@ -107,12 +125,10 @@
 			children = (
 				955DFF6F21B17B0400A8C861 /* AppDelegate.swift */,
 				955DFF7321B17B0400A8C861 /* Main.storyboard */,
-				95DD0BA322AD247C0051FA64 /* MenuViewController.swift */,
-				950EE89C220788F0005BFA7F /* GameView.swift */,
-				95C69BD122AF88BE0035FF85 /* StopWatch.swift */,
+				95487D7922CB405D0060A758 /* Main Views */,
+				95487D7822CB403D0060A758 /* Game Logic */,
 				955DFF7821B17B0500A8C861 /* LaunchScreen.storyboard */,
 				955DFF7B21B17B0500A8C861 /* Info.plist */,
-				955FCD7821B6DFA60078FF53 /* Logic.swift */,
 				955DFF7621B17B0500A8C861 /* Assets.xcassets */,
 			);
 			path = "15 puzzle";
